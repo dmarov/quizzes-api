@@ -1,0 +1,35 @@
+parameters:
+  - $ref: '../params/path.yaml#/UserName'
+  - $ref: '../params/path.yaml#/QuizId'
+get:
+  security:
+    - jwtAuth: []
+  summary: get quiz by id
+  responses:
+    '200':
+      description: 
+      content:
+        application/json:
+          schema:
+            $ref: '../schemas/quiz.yaml#/Quiz'
+    '401':
+      $ref: '../responses/not-authorized.yaml'
+    '404':
+      $ref: '../responses/not-found.yaml'
+  tags:
+    - quiz
+delete:
+  security:
+    - jwtAuth: []
+  summary: delete quiz
+  responses:
+    '204':
+      description: quiz deleted
+    '401':
+      $ref: '../responses/not-authorized.yaml'
+    '403':
+      $ref: '../responses/forbidden.yaml'
+    '404':
+      $ref: '../responses/not-found.yaml'
+  tags:
+    - quiz

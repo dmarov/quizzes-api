@@ -1,0 +1,87 @@
+# base for response inheritance
+# abstract class
+ResponseBase:
+  type: object
+  properties:
+    type:
+      type: string
+
+# response expected as option of existing ones
+# abstract class
+ResponseOptions:
+  type: object
+  allOf:
+    - $ref: '#/ResponseBase'
+  properties:
+    options:
+      type: array
+      items:
+        type: string
+
+# response expected as manual input
+ResponseInput:
+  type: object
+  allOf:
+    - $ref: '#/ResponseBase'
+  example:
+    type: input
+
+# response expected as single option
+ResponseSingleOption:
+  type: object
+  allOf:
+    - $ref: '#/ResponseOptions'
+  example:
+    type: single option
+    options:
+      - x = 8
+      - x = 9
+      - x = 10
+
+# response expected as multiple options (order is indifferent)
+ResponseMultipleOptions:
+  type: object
+  allOf:
+    - $ref: '#/ResponseOptions'
+  example:
+    type: multiple options
+    options:
+      - 2 < x < 10
+      - 4 < x < 11
+      - 7 < x < 20
+
+ResponseSequence:
+  type: object
+  allOf:
+    - $ref: '#/ResponseOptions'
+  example:
+    type: sequence
+    valuesFrom:
+      - 2
+      - 3
+      - 4
+      - 5
+
+# response agregator
+Response:
+  type: object
+  oneOf:
+    # - $ref: '#/ResponseBase'
+    - $ref: '#/ResponseInput'
+    - $ref: '#/ResponseSingleOption'
+    - $ref: '#/ResponseMultipleOptions'
+    - $ref: '#/ResponseSequence'
+  discriminator:
+    propertyName: type
+    mapping:
+      # 'generic':          '#/ResponseBase'
+      'input':            '#/ResponseInput'
+      'single option':    '#/ResponseSingleOption'
+      'multiple options': '#/ResponseMultipleOptions'
+      'sequence':         '#/ResponseSequence'
+  example:
+    type: single option
+    options:
+      - x = 8
+      - x = 9
+      - x = 10

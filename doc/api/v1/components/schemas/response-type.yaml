@@ -1,0 +1,19 @@
+ResponseType:
+  type: object
+  properties:
+    type:
+      type: string
+    description:
+      type: string
+
+  example:
+    type: single option
+    description: choose exactly one answer
+
+ResponseTypes:
+  type: array
+  items:
+    $ref: '#/ResponseType'
+  example:
+    - type: single option
+      description: 

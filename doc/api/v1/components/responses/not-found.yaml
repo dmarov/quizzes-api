@@ -1,0 +1,6 @@
+description: not found
+content:
+  application/json:
+    schema:
+      $ref: '../schemas/errors.yaml#/NotFound'
+    example: resource not found

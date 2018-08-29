@@ -1,0 +1,29 @@
+UserName:
+  name: userName
+  in: path
+  schema:
+    type: string
+
+QuizId:
+  name: quizId
+  in: path
+  schema:
+    type: string
+
+QuestionId:
+  name: questionId
+  in: path
+  schema:
+    type: string
+
+TagName:
+  name: tagName
+  in: path
+  schema:
+    type: string
+
+AnswerId:
+  name: answerId
+  in: path
+  schema:
+    type: string

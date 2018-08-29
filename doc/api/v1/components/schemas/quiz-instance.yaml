@@ -1,0 +1,50 @@
+QuizInstance:
+  type: object
+  description: quiz instance info
+  properties:
+    id:
+      type: string
+      example: quizInstanceId1
+    quiz:
+      $ref: 'quiz.yaml#/Quiz'
+    creationDate:
+      type: string
+      pattern: /\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}/
+      example: "2018-09-27 13:00:00"
+
+QuizInstances:
+  type: array
+  description: list of quiz instances
+  items:
+    $ref: '#/QuizInstance'
+
+QuizInstanceQuestion:
+  title: quiz instance question
+  type: object
+  allOf:
+    - $ref: 'question.yaml#/Question'
+
+QuizInstancePaginatedQuestions:
+  title: paginated list of quiz instance questions
+  type: object
+  allOf:
+    - $ref: 'pagination.yaml'
+  properties:
+    results:
+      items:
+        $ref: '#/QuizInstanceQuestion'
+
+QuizInstanceResponse:
+  type: object
+  additionalProperties: true
+  properties:
+    answers:
+      type: object
+      additionalProperties:
+        type: any
+  example:
+    answers: {
+      "123abc": [ 'x = 8', 'x = 10'],
+      "456def": 'S = 44',
+      "789ghi": 'd4/dx2dy2 = (d/dx)^2*(d/dy)^2'
+    }

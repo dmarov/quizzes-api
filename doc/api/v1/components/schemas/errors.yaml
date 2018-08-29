@@ -1,0 +1,8 @@
+Forbidden:
+  type: string
+
+NotFound:
+  type: string
+
+NotAuthorized:
+  type: string

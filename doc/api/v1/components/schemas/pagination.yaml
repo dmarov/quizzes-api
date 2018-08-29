@@ -1,0 +1,31 @@
+type: object
+description: paginated list of quizzes
+properties:
+  results:
+    type: array
+  _links:
+    type: object
+    properties:
+      base:
+        type: string
+      first:
+        type: string
+      prev:
+        type: string
+      next:
+        type: string
+      last:
+        type: string
+      self:
+        type: string
+  limit:
+    type: integer
+    description: items limit
+    example: 1
+  size:
+    type: integer
+    description: size of results array
+    example: 1
+  offset:
+    description: items offset
+    type: integer

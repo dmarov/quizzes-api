@@ -1,0 +1,17 @@
+QuestionStatistics:
+  title: Statistics for questions
+  type: object
+  properties:
+    questionId:
+      type: string
+      description: question id
+      example: 123abc
+    value:
+      type: array
+      example:
+        - value: "answer1"
+          count: 20
+        - value: "answer2"
+          count: 10
+        - value: "answer3"
+          count: 10

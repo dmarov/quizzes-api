@@ -1,0 +1,62 @@
+parameters:
+  - $ref: '../params/path.yaml#/UserName'
+  - $ref: '../params/path.yaml#/QuizId'
+  - $ref: '../params/path.yaml#/QuestionId'
+get:
+  security:
+    - jwtAuth: []
+  summary: get question by id
+  responses:
+    '200':
+      content:
+        application/json:
+          schema:
+            $ref: '../schemas/question.yaml#/Question'
+    '401':
+      $ref: '../responses/not-authorized.yaml'
+    '403':
+      $ref: '../responses/forbidden.yaml'
+    '404':
+      $ref: '../responses/not-found.yaml'
+  tags:
+    - question
+
+patch:
+  security:
+    - jwtAuth: []
+  summary: update question info
+  responses:
+    '200':
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              response:
+                $ref: '../schemas/question-response.yaml#/Response'
+              content:
+                $ref: '../schemas/question-content.yaml#/Content'
+    '401':
+      $ref: '../responses/not-authorized.yaml'
+    '403':
+      $ref: '../responses/forbidden.yaml'
+    '404':
+      $ref: '../responses/not-found.yaml'
+  tags:
+    - question
+
+delete:
+  security:
+    - jwtAuth: []
+  summary: delete question by id
+  responses:
+    '204':
+      description: question deleted
+    '401':
+      $ref: '../responses/not-authorized.yaml'
+    '403':
+      $ref: '../responses/forbidden.yaml'
+    '404':
+      $ref: '../responses/not-found.yaml'
+  tags:
+    - question

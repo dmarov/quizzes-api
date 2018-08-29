@@ -1,0 +1,18 @@
+parameters:
+  - $ref: '../params/path.yaml#/UserName'
+  - $ref: '../params/path.yaml#/QuizId'
+get:
+  security:
+    - jwtAuth: []
+  summary: get list of quiz instances
+  responses:
+    '200':
+      description: 
+      content:
+        application/json:
+          schema:
+            $ref: '../schemas/quiz-instance.yaml#/QuizInstances'
+    '401':
+      $ref: '../responses/not-authorized.yaml'
+  tags:
+    - quiz instance

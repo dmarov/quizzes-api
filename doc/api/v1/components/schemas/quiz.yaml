@@ -1,0 +1,27 @@
+Quiz:
+  type: object
+  description: quiz summary info
+  properties:
+    id:
+      type: string
+      description: quiz identifier
+    title:
+      type: string
+      description: quiz title
+    creationDate:
+      type: string
+      pattern: /\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}/
+  example:
+    id: 123abc
+    title: New Exiting quiz
+    creationDate: "2018-09-27 12:00:00"
+
+PaginatedQuizzes:
+  type: object
+  description: paginated list of quizzes
+  allOf:
+    - $ref: 'pagination.yaml'
+  properties:
+    results:
+      items:
+        $ref: '#/Quiz'

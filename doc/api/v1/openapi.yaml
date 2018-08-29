@@ -1,0 +1,74 @@
+openapi: "3.0.1"
+info:
+  title: Interviews, Questionnaire, Tests, Quests
+  description: |
+    Covers range of test related tasks
+    possible content types: 'text', 'image', 'html'
+    possible response types: 'single option', 'multiple options', 'text input'
+  contact:
+    name: API Support
+    email: dmitrym.dev@websm.io
+  version: 1.0.0
+
+components:
+  securitySchemes:
+    jwtAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: "JSON Web Token payload format: { role: \"user\", user: \"bright-ege\" }"
+
+servers:
+  - url: https://api.quiz.websm.io/
+    description: production server
+  - url: https://api.quiz.websm.io/{version}
+    description: production server
+    variables:
+      version:
+        description: api version
+        default: v1
+  - url: https://dev.api.quiz.websm.io/
+    description: development server
+  - url: https://api.quiz.websm.io/{version}
+    description: development server
+    variables:
+      version:
+        description: api version
+        default: v1
+
+paths:
+  /users/{userName}/quizzes:
+    $ref: 'components/paths/quizzes.yaml'
+  /users/{userName}/quizzes/{quizId}:
+    $ref: 'components/paths/quiz.yaml'
+  /users/{userName}/quizzes/{quizId}/tags:
+    $ref: 'components/paths/quiz-tags.yaml'
+  /users/{userName}/quizzes/{quizId}/tags/{tagName}:
+    $ref: 'components/paths/quiz-tag.yaml'
+  /users/{userName}/quizzes/{quizId}/questions:
+    $ref: 'components/paths/questions.yaml'
+  /users/{userName}/quizzes/{quizId}/questions/{questionId}:
+    $ref: 'components/paths/question.yaml'
+  # full statistics ?
+  # /users/{userName}/quizzes/{quizId}/statistics:
+  /users/{userName}/quizzes/{quizId}/questions/{questionId}/statistics:
+    $ref: 'components/paths/question-statistics.yaml'
+  /users/{userName}/quizzes/{quizId}/questions/{questionId}/tags:
+    $ref: 'components/paths/question-tags.yaml'
+  /users/{userName}/quizzes/{quizId}/questions/{questionId}/tags/{tagName}:
+    $ref: 'components/paths/question-tag.yaml'
+  /users/{userName}/quizzes/{quizId}/instances:
+    $ref: 'components/paths/quiz-instances.yaml'
+  /users/{userName}/quizzes/{quizId}/instances/{instanceId}:
+    $ref: 'components/paths/quiz-instance.yaml'
+  # for stateless service
+  /users/{userName}/quizzes/{quizId}/instances/{instanceId}/questions:
+    $ref: 'components/paths/quiz-instance-questions.yaml'
+  /users/{userName}/quizzes/{quizId}/instances/{instanceId}/responses:
+    $ref: 'components/paths/quiz-instance-responses.yaml'
+  # for stateful service ?
+  # /users/{userName}/quizzes/{quizId}/instances/{instanceId}/nextquestion:
+  # /users/{userName}/quizzes/{quizId}/instances/{instanceId}/responses/answer:
+  # metadata ?
+  # /meta:
+  #   $ref: 'components/paths/metadata.yaml'

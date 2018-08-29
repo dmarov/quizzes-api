@@ -1,0 +1,6 @@
+description: authorization required
+content:
+  application/json:
+    schema:
+      $ref: '../schemas/errors.yaml#/NotAuthorized'
+    example: authorization required

@@ -1,0 +1,26 @@
+parameters:
+  - $ref: '../params/path.yaml#/QuizId'
+post:
+  security:
+    - jwtAuth: []
+  summary: append quiz instance response
+  requestBody:
+    description: provide response info using json format
+    content:
+      application/json:
+        schema:
+          $ref: '../schemas/quiz-instance.yaml#/QuizInstanceResponse'
+
+  responses:
+    '201':
+      description: quiz instance response created
+      content:
+        application/json:
+          schema:
+            $ref: '../schemas/quiz-instance.yaml#/QuizInstanceResponse'
+    '401':
+      $ref: '../responses/not-authorized.yaml'
+    '403':
+      $ref: '../responses/forbidden.yaml'
+  tags:
+    - quiz instance

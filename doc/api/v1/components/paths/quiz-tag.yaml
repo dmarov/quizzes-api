@@ -1,0 +1,20 @@
+parameters:
+  - $ref: '../params/path.yaml#/UserName'
+  - $ref: '../params/path.yaml#/QuizId'
+  - $ref: '../params/path.yaml#/TagName'
+delete:
+  security:
+    - jwtAuth: []
+  summary: delete quiz tag
+  responses:
+    '204':
+      description: tag deleted
+    '401':
+      $ref: '../responses/not-authorized.yaml'
+    '403':
+      $ref: '../responses/forbidden.yaml'
+    '404':
+      $ref: '../responses/not-found.yaml'
+  tags:
+    - quiz
+    - tags

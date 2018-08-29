@@ -1,0 +1,23 @@
+Question:
+  title: quiz question
+  type: object
+  properties:
+    id:
+      type: string
+      example: 123abc
+    response:
+      $ref: 'question-response.yaml#/Response'
+    content:
+      $ref: 'question-content.yaml#/Content'
+    tags:
+      $ref: 'tag.yaml#/Tags'
+
+PaginatedQuestions:
+  title: paginated list of questions
+  type: object
+  allOf:
+    - $ref: 'pagination.yaml'
+  properties:
+    results:
+      items:
+        $ref: '#/Question'

@@ -1,0 +1,11 @@
+Tag:
+  type: string
+  example: part A
+
+Tags:
+  type: array
+  items:
+    $ref: '#/Tag'
+  example:
+    - part A
+    - easy

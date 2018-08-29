@@ -1,0 +1,31 @@
+parameters:
+  - $ref: '../params/path.yaml#/UserName'
+  - $ref: '../params/path.yaml#/QuizId'
+get:
+  security:
+    - jwtAuth: []
+  summary: get list of quiz instance questions
+  parameters:
+    - name: offset
+      in: query
+      schema:
+        type: integer
+      description: first question number
+    - name: limit
+      in: query
+      schema:
+        type: integer
+      description: limit questions number
+  responses:
+    '200':
+      description: list of quiz instance questions
+      content:
+        application/json:
+          schema:
+            $ref: '../schemas/quiz-instance.yaml#/QuizInstancePaginatedQuestions'
+    '401':
+      $ref: '../responses/not-authorized.yaml'
+    '403':
+      $ref: '../responses/forbidden.yaml'
+  tags:
+    - quiz instance

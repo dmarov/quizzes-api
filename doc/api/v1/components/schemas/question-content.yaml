@@ -1,0 +1,47 @@
+# base for content inheritance
+ContentBase:
+  type: object
+  properties:
+    type:
+      type: string
+
+# for questions containing only text
+ContentText:
+  type: object
+  allOf:
+    - $ref: '#/ContentBase'
+  properties:
+    text:
+      type: string
+  example:
+    type: text
+    text: 2 + 2 = ?
+
+# for questions containing only image
+ContentImage:
+  type: object
+  allOf:
+    - $ref: '#/ContentBase'
+  properties:
+    imageRef:
+      type: string
+  example:
+    type: image
+    imageRef: /data/123abc.jpg_500x500
+
+# agregator of content
+Content:
+  type: object
+  oneOf:
+    - $ref: '#/ContentBase'
+    - $ref: '#/ContentText'
+    - $ref: '#/ContentImage'
+  discriminator:
+    propertyName: type
+    mapping:
+      generic: '#/ContentBase'
+      text: '#/ContentText'
+      image: '#/ContentImage'
+  example:
+    type: text
+    text: 2 + 2 = ?

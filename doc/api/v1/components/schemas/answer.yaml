@@ -1,0 +1,22 @@
+ContentType:
+  type: string
+  enum:
+    - text
+    - image
+  description: type of answer content
+
+Answer:
+  type: object
+  properties:
+    id:
+      type: string
+# validation on server side ?
+    contentType:
+      $ref: '#/ContentType'
+    content:
+      type: any
+
+Answers:
+  type: array
+  items:
+      $ref: '#/Answer'

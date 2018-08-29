@@ -1,0 +1,60 @@
+parameters:
+  - $ref: '../params/path.yaml#/UserName'
+  - $ref: '../params/path.yaml#/QuizId'
+get:
+  security:
+    - jwtAuth: []
+  summary: get list of questions
+  parameters:
+    - name: offset
+      in: query
+      schema:
+        type: integer
+      description: first question number
+    - name: limit
+      in: query
+      schema:
+        type: integer
+      description: limit questions number
+  responses:
+    '200':
+      description: list of questions
+      content:
+        application/json:
+          schema:
+            $ref: '../schemas/question.yaml#/PaginatedQuestions'
+    '401':
+      $ref: '../responses/not-authorized.yaml'
+    '403':
+      $ref: '../responses/forbidden.yaml'
+  tags:
+    - questions
+post:
+  security:
+    - jwtAuth: []
+  summary: append question to quiz
+  requestBody:
+    description: provide question info using json format
+    content:
+      application/json:
+        schema:
+          properties:
+            type:
+              type: string
+            # content:
+            #   $ref: '../schemas/question-content.yaml#/Content'
+            # response:
+            #   $ref: '../schemas/question-response.yaml#/Response'
+  responses:
+    '201':
+      description: question created
+      content:
+        application/json:
+          schema:
+            $ref: '../schemas/question.yaml#/Question'
+    '401':
+      $ref: '../responses/not-authorized.yaml'
+    '403':
+      $ref: '../responses/forbidden.yaml'
+  tags:
+    - questions

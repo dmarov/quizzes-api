@@ -1,0 +1,18 @@
+ContentType:
+  type: object
+  propeties:
+    type: string
+    description: string
+  example:
+    type: text
+    description: 
+
+ContentTypes:
+  type: array
+  items:
+    $ref: '#/ContentType'
+  example:
+    - text
+    - image
+    - text inputs
+    - html

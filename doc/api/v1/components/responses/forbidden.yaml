@@ -1,0 +1,6 @@
+description: forbidden
+content:
+  application/json:
+    schema:
+      $ref: '../schemas/errors.yaml#/Forbidden'
+    example: access denied
