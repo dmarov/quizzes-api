@@ -16,6 +16,7 @@ routes.get('/', async ctx => {
 
     ctx.set("Content-Type", "text/html");
     ctx.body = fs.createReadStream(DOC_PATH);
+
 });
 
 // route.get('/users', jwtParser, getUsers);
@@ -24,3 +25,4 @@ routes.get('/', async ctx => {
 // routes.extend(usersRoute);
 
 module.exports = routes;
+

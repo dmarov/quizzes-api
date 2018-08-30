@@ -1,8 +1,8 @@
 **Service for interviews, questionnaires, tests**
 
 *installation*
-cd public
 yarn
+babel -d ./public ./src
 
 *running*
-./index.js --help
+./public/index.js --help
