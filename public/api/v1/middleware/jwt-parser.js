@@ -1,28 +1,15 @@
 'use strict';
 
-const Router = require('koa-better-router');
 const Request = require('request-promise-native');
-const args = require('../../../lib/args.js');
-
-const route = Router().loadMethods();
+const args = require('@lib/args.js');
  
-route.get('/:path(.*)', async (ctx, next) => {
 
-    try {
+module.exports = async (ctx, next) => {
 
-        // let result = request(args.jwtDecoderUrl)
+    prefix = params.prefix;
+    ctx.body = 'ok jwt';
 
-        ctx.state.jwt = {
-            user: "Bob",
-            permissions: {},
-        };
-
-    } catch(e) {
-    
-    }
 
     await next();
 
-});
-
-module.exports = route;
+}

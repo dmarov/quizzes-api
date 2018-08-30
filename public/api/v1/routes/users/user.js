@@ -5,14 +5,11 @@ const Request = require('request-promise-native');
 
 const route = Router().loadMethods();
  
+route.get('/users', async (ctx, next) => {
 
-@route('get', '/users')
-function getUsers() {
+    ctx.body = 'ok 1';
+    await next();
 
-}
-
-route.get('/users', jwtParser, getUsers);
-route.get('/users/:userName', jwtParser, getUser);
-
+});
 
 module.exports = route;

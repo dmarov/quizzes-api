@@ -19,16 +19,12 @@ components:
       description: "JSON Web Token payload format: { role: \"user\", user: \"bright-ege\" }"
 
 servers:
-  - url: https://api.quiz.websm.io/
-    description: production server
   - url: https://api.quiz.websm.io/{version}
     description: production server
     variables:
       version:
         description: api version
         default: v1
-  - url: https://dev.api.quiz.websm.io/
-    description: development server
   - url: https://api.quiz.websm.io/{version}
     description: development server
     variables:
