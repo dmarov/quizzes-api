@@ -9,15 +9,6 @@ const route = Router().loadMethods();
 // function getUsers() {
 
 // }
-function hello() {
-    console.log('hello');
-}
-
-@hello
-function sayHello() {
-
-
-}
 
 route.get('/users', jwtParser, getUsers);
 route.get('/users/:userName', jwtParser, getUser);
