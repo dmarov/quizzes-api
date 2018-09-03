@@ -1,94 +1,108 @@
 'use strict';
 
-const Router = require('koa-better-router');
 const Koa = require('koa');
+const Router = require('koa-better-router');
+const bodyParser = require('koa-bodyparser');
+
+const jwtParser = require('./middleware/jwt-parser')
+const Routes = require('./routes');
 
 const path = require('path');
 const fs = require('fs');
-
 const DOC_PATH = path.resolve(__dirname, '../../../doc/api/v1/openapi.html');
 
-const router = Router().loadMethods();
+const routes = Router().loadMethods();
 
-router.get('/', async ctx => {
+routes.get('/', async ctx => {
 
     ctx.set("Content-Type", "text/html");
     ctx.body = fs.createReadStream(DOC_PATH);
+
 });
 
+routes.extend(Routes);
+
 let app = new Koa();
-app.use(router.middleware());
 
-// const Router = require('koa-better-router');
-// const path = require('path');
-// const fs = require('fs');
-// const router = require('./router');
+app.use(bodyParser());
+app.use(jwtParser());
 
-// const DOC_PATH = path.resolve(__dirname, '../../../doc/api/v1/openapi.html');
-
-// const jwtParser = require('./middleware/jwt-parser.js');
-
-// const users = require('./routes/users.js');
-
-// const router = Router().loadMethods();
-
-// router.addRoute('GET', '/users', [ jwtParser, users.get ]);
-// router.addRoute('GET', '/users/:userName', [ jwtParser, users ]);
-// router.addRoute('GET', '/users/:userName/quizzes', [ jwtParser, quizzes ]);
-// router.addRoute('GET', '/users/:userName/quizzes/:quizId', [ jwtParser, quiz ]);
-// const usersRoute = require('./routes/users.js');
-
-// const router = Router();
-
-// api documentation
-// router.addRoute('GET', '/', async ctx => {
-
-//     ctx.set("Content-Type", "text/html");
-//     ctx.body = fs.createReadStream(DOC_PATH);
-
-// });
-
-
-// let pool = [];
-
-// function jwtProtect(method, path) {
-
-//     return (target, key, descriptor) => {
-
-//         pool.push({ method, path, handlers: [jwtParser, target[key]] });
-
-//     }
-// }
-
-// function justRoute(method, path) {
-
-//     return (target, key, descriptor) => {
-
-//         pool.push({ method, path, handlers: [target[key]] });
-
-//     }
-// }
-
-// class RouterWrap {
-
-//     @jwtProtect('get', '/users')
-//     getUsers(ctx, next) {
-//         console.log('users ok');
-//     }
-
-//     @jwtProtect('get', '/users/:userName')
-//     getUser(ctx, next) {
-//         console.log('user ok');
-//     }
-
-//     @justRoute('get', '/users/:userName/quizzes')
-//     getUser(ctx, next) {
-//         console.log('quizzes ok');
-//     }
-
-// }
-
-// for (let route of pool)
-//     router.addRoute(route.method, route.path, route.handlers);
+app.use(routes.middleware());
 
 module.exports = app;
+
+// let routesTree = {
+//     '/users': {
+//         handler: aaa,
+//         subitems: {
+//             '/:userName': {
+//                 handler: aaa,
+//                 subitems: {
+//                     '/quizzes': {
+//                         handler: aaa,
+//                         subitems: {
+//                             '/:quizId': {
+//                                 handler: aaa,
+//                                 subitems: {
+//                                     '/tags': {
+//                                         handler: aaa,
+//                                         subitems: {
+//                                             '/:tagName': aaa,
+//                                         }
+//                                     },
+//                                     '/questions': {
+//                                         handler: aaa,
+//                                         subitems: {
+//                                             '/:questionId': {
+//                                                 handler: aaa,
+//                                                 subitems: {
+//                                                     '/tags': {
+//                                                         handler: aaa,
+//                                                         subitems: {
+//                                                             '/:tagName': aaa,
+//                                                         },
+//                                                     },
+//                                                 },
+//                                             },
+//                                         },
+//                                     },
+//                                     '/instances': {
+//                                         handler: aaa,
+//                                         subitems: {
+//                                             '/:instanceId': {
+//                                                 handler: aaa,
+//                                                 subitems: {
+//                                                     '/questions': 'aaa',
+//                                                     '/responses': 'aaa',
+//                                                 },
+//                                             },
+//                                         },
+//                                     },
+//                                 },
+//                             },
+//                         },
+//                     },
+//                 },
+//             },
+//         },
+//     },
+// };
+
+// let user = new User('/users/:userName');
+// let quizzes = new Quizzes('/users/:userName/quizzes');
+// let quiz = new Quiz('/users/:userName/quizzes/:quizId');
+// let quizTags = new Quiz('/users/:userName/quizzes/:quizId/tags');
+// let quizTag = new Quiz('/users/:userName/quizzes/:quizId/tags/:tagName');
+// let questions = new Questions('/users/:userName/quizzes/:quizId/questions');
+// let question = new Question('/users/:userName/quizzes/:quizId/questions/:questionId');
+// let questionTags = new QuestionTags('/users/:userName/quizzes/:quizId/questions/:questionId/tags');
+// let questionTag = new QuestionTag('/users/:userName/quizzes/:quizId/questions/:questionId/tags/:tagName');
+// let quizInstances = new QuestionInstances('/users/:userName/quizzes/:quizId/instances');
+// let quizInstance = new QuestionInstance('/users/:userName/quizzes/:quizId/instances/:instanceId');
+// let quizInstanceQuestions = new QuestionInstanceQuestions('/users/:userName/quizzes/:quizId/instances/:instanceId/questions');
+// let quizInstanceResponses = new QuestionInstanceResponses('/users/:userName/quizzes/:quizId/instances/:instanceId/responses');
+
+// routes.extend(users.getRoutes());
+// routes.extend(user.getRoutes());
+// routes.extend(quizzes.getRoutes());
+// routes.extend(quiz.getRoutes());
