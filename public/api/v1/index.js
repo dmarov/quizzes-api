@@ -5,27 +5,47 @@ const Router = require('koa-better-router');
 const bodyParser = require('koa-bodyparser');
 const path = require('path');
 const fs = require('fs');
+const massive = require('massive');
+const di = require('./di');
 
 const jwtParser = require('./middleware/jwt-parser')
 const Routes = require('./routes');
 
-const DOC_PATH = path.resolve(__dirname, '../../../doc/api/v1/openapi.html');
+module.exports = async _ => {
 
-const routes = Router().loadMethods();
+    let db = await massive({
+        host: "127.0.0.1",
+        port: 5432,
+        user: "quizzes_api",
+        password: "NRuWlO0uLsG75ySUSE3KDuF7or0M1WLwEkTcXk8q",
+        database: "quizzes_api_v1",
+    });
 
-routes.get('/', async ctx => {
+    di.append('db', db);
 
-    ctx.set("Content-Type", "text/html");
-    ctx.body = fs.createReadStream(DOC_PATH);
+    const DOC_PATH = path.resolve(__dirname, '../../../doc/api/v1/openapi.html');
 
-});
+    const routes = Router().loadMethods();
 
-routes.extend(Routes);
+    routes.get('/', async ctx => {
 
-let app = new Koa();
+        ctx.set("Content-Type", "text/html");
+        ctx.body = fs.createReadStream(DOC_PATH);
 
-app.use(bodyParser());
-app.use(jwtParser());
-app.use(routes.middleware());
+    });
 
-module.exports = app;
+    routes.extend(Routes);
+
+    let app = new Koa();
+
+    app.use(async (ctx, next) => {
+        ctx.db = di.get('db');
+        await next();
+    });
+
+    app.use(bodyParser());
+    app.use(jwtParser());
+    app.use(routes.middleware());
+
+    return app;
+}
