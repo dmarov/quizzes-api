@@ -21,9 +21,7 @@ module.exports = async _ => {
     });
 
     const DOC_PATH = path.resolve(__dirname, '../../../doc/api/v1/openapi.html');
-
     const routes = Router().loadMethods();
-
     routes.get('/', async ctx => {
 
         ctx.set("Content-Type", "text/html");
