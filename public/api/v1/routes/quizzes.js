@@ -57,13 +57,29 @@ routes.post(path, checkRole('admin'), checkUser('user'),
 
         let sort = params.sort;
 
-        if (!sort)
-            sort = await ctx.db.quiz
-                .findOne({ user_id: user.id })
-                .then(quiz => quiz ? quiz.sort : 1);
+        let quiz = await ctx.db.withTransaction(async tx => {
 
-        let quiz = await ctx.db.quiz
-            .insert({ title: params.title, user_id: user.id, sort });
+            if (!sort) {
+                let maxSort = await tx.query("SELECT MAX(sort) as max \
+                    FROM quiz WHERE user_id = ${user_id}", {
+                        user_id: user.id
+                    })
+                    .then(res => res[0])
+                    .then(res => res ? res.max : 0);
+                sort = maxSort + 1;
+
+            } else {
+
+                await tx.query("UPDATE quiz \
+                    WHERE user_id = ${userId} \
+                    AND sort >= ${sort} \
+                    SET sort = sort + 1", { sort, userId: user.id });
+
+            }
+
+            return await tx.quiz.insert({ title: params.title, user_id: user.id, sort });
+
+        });
 
         let origin = ctx.origin;
         let quizSort = quiz.sort;

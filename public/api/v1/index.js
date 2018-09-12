@@ -13,10 +13,10 @@ const Routes = require('./routes');
 module.exports = async _ => {
 
     let db = await massive({
-        host: "127.0.0.1",
-        port: 5432,
-        user: "quizzes_api",
-        password: "NRuWlO0uLsG75ySUSE3KDuF7or0M1WLwEkTcXk8q",
+        host: process.env.PG_HOST,
+        port: process.env.PG_PORT ? process.env.PG_PORT: 5432,
+        user: process.env.PG_USER,
+        password: process.env.PG_PASSWORD,
         database: "quizzes_api_v1",
     });
 

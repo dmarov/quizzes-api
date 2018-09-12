@@ -1,8 +1,0 @@
-port: 9876
-jwt-decoder-url: http://jwt-sign-server.websm.io/api/v1/decoder`
-host: 0.0.0.0
-db-host:
-db-port:
-db-user:
-db-password:
-db-name:

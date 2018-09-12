@@ -7,4 +7,4 @@ building:
   - workdir: "/root/quiz"
 
 starting:
-  - run: "node ./public/index.js -p=9876 -d=http://jwt-sign-server.websm.io/api/v1/decoder"
+  - run: "cd ./public && ./run.sh"
