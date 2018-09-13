@@ -1,4 +1,4 @@
-module.exports = async ({ origin, userName, quizSort }) => {
+module.exports = async ({ origin, userName, quizId }) => {
 
     let _embedded = {
         

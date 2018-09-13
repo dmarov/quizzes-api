@@ -29,7 +29,7 @@ routes.get(path, checkRole('admin'), checkUser('user'),
         let quizzes = await ctx.db.quiz
             .find({ user_id: user.id }, { offset, limit });
 
-        let size = quizzes.size;
+        let size = quizzes.length;
 
         let _links = await quizzesLinks({ origin, userName, offset, limit, size });
         let _embedded = await quizzesEmbedded({ origin, userName, quizzes });
@@ -55,37 +55,20 @@ routes.post(path, checkRole('admin'), checkUser('user'),
 
         let params = ctx.request.body;
 
-        let sort = params.sort;
+        let maxSort = await ctx.db.query("SELECT MAX(sort) as max \
+            FROM quiz WHERE user_id = ${user_id}", { user_id: user.id })
+            .then(res => res[0])
+            .then(res => res ? res.max : 0);
 
-        let quiz = await ctx.db.withTransaction(async tx => {
+        let sort = maxSort + 1;
 
-            if (!sort) {
-                let maxSort = await tx.query("SELECT MAX(sort) as max \
-                    FROM quiz WHERE user_id = ${user_id}", {
-                        user_id: user.id
-                    })
-                    .then(res => res[0])
-                    .then(res => res ? res.max : 0);
-                sort = maxSort + 1;
-
-            } else {
-
-                await tx.query("UPDATE quiz \
-                    WHERE user_id = ${userId} \
-                    AND sort >= ${sort} \
-                    SET sort = sort + 1", { sort, userId: user.id });
-
-            }
-
-            return await tx.quiz.insert({ title: params.title, user_id: user.id, sort });
-
-        });
+        let quiz = await ctx.db.quiz.insert({ title: params.title, user_id: user.id, sort });
 
         let origin = ctx.origin;
-        let quizSort = quiz.sort;
+        let quizId = quiz.id;
 
-        let _links = await quizLinks({ origin, userName, quizSort });
-        let _embedded = await quizEmbedded({ origin, userName, quizSort });
+        let _links = await quizLinks({ origin, userName, quizId });
+        let _embedded = await quizEmbedded({ origin, userName, quizId });
 
         ctx.set('Content-Type', 'application/hal+json');
         ctx.body = {

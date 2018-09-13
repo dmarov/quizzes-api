@@ -1,7 +1,7 @@
-module.exports = async ({origin, userName, quizSort}) => {
+module.exports = async ({origin, userName, quizId}) => {
 
-    let url = `${origin}/users/${userName}/quizzes/${quizSort}`;
-    let responsesUrl = `${origin}/users/${userName}/quizzes/${quizSort}/responses`;
+    let url = `${origin}/users/${userName}/quizzes/${quizId}`;
+    let responsesUrl = `${origin}/users/${userName}/quizzes/${quizId}/responses`;
 
     let _links = {
         self: {
