@@ -1,8 +1,5 @@
 'use strict';
 
-const prequest = require('request-promise-native');
-
-// checks if jwt user is the same user as requested
 module.exports = _ => {
 
     return async (ctx, next) => {

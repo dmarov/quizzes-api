@@ -31,7 +31,6 @@ routes.get(path, user(),
 
         ctx.set('Content-Type', 'application/hal+json');
         ctx.body = { _embedded, _links, offset, limit, size };
-
     }
 );
 

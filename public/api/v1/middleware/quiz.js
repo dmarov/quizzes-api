@@ -1,14 +1,22 @@
 'use strict';
 
-const prequest = require('request-promise-native');
-
-// checks if jwt user is the same user as requested
-module.exports = (paramName) => {
+module.exports = _ => {
 
     return async (ctx, next) => {
 
-        let jwt = ctx.state.jwt;
-        jwt && jwt.user === ctx.params[paramName] ? await next() : ctx.status = 401;
+        let user = ctx.state.user;
+        let quizId = ctx.params.quizId;
+
+        let quiz = await ctx.db.quiz
+            .findOne({ id: quizId });
+
+        if (quiz === null) {
+            ctx.status = 404;
+            ctx.body = 'quiz not found';
+        } else {
+            ctx.state.quiz = quiz;
+            await next();
+        }
 
     }
 }

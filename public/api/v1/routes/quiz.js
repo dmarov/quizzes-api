@@ -1,35 +1,63 @@
 const Router = require('koa-better-router');
-const { checkRole, checkUser } = require('../middleware');
+const { checkRole, checkUser, user, quiz } = require('../middleware');
+const hal = require('../factory/hal');
 
 const path = '/users/:user/quizzes/:quizId';
 const routes = Router().loadMethods();
 
-routes.get(path, checkRole('admin'), checkUser('user'),
+routes.get(path, user(), quiz(),
     async (ctx, next) => {
 
-        let user = await ctx.db.user
-            .findOne({
-                name: ctx.params.user
-            });
+        let origin = ctx.origin;
+        let userName = ctx.params.user;
+        let quiz = ctx.state.quiz;
+        let quizId = quiz.id;
+        let _links = await hal.quiz.links({ origin, userName, quizId });
+        let _embedded = await hal.quiz.embedded({ origin, userName, quizId });
 
-        let quiz = await ctx.db.quiz
-            .findOne({
-                user_id: user.id,
-            });
-
-        await next();
+        ctx.body = {
+            ...quiz,
+            _links,
+            _embedded,
+        };
     }
-
 );
 
-routes.patch(path, async (ctx, next) => {
+routes.patch(path, checkRole('admin'), checkUser(), user(), quiz(),
+    async (ctx, next) => {
 
-    await next();
-});
+        let quizId = ctx.state.quiz.id;
 
-routes.delete(path, async (ctx, next) => {
+        let fields = ctx.request.body;
+        delete fields.creation_date;
+        delete fields.sort;
+        delete fields.user_id;
+        delete fields.id;
 
-    await next();
-});
+        let quiz = await ctx.db.quiz.update({ id: quizId }, { ...fields });
+
+        let origin = ctx.origin;
+        let userName = ctx.params.user;
+        let _links = await hal.quiz.links({ origin, userName, quizId });
+        let _embedded = await hal.quiz.embedded({ origin, userName, quizId });
+
+        ctx.body = {
+            ...quiz,
+            _links,
+            _embedded,
+        };
+    },
+);
+
+routes.delete(path, checkRole('admin'), checkUser(), user(), quiz(),
+    async (ctx, next) => {
+
+        let quizId = ctx.params.quizId;
+        let quiz = await ctx.db.quiz.destroy({ id: quizId });
+
+        ctx.status = 204;
+        ctx.body = 'quiz deleted';
+    },
+);
 
 module.exports = routes;
