@@ -7,7 +7,7 @@ const path = require('path');
 const fs = require('fs');
 const massive = require('massive');
 
-const jwtParser = require('./middleware/jwt-parser')
+const { jwtParser } = require('./middleware');
 const Routes = require('./routes');
 
 module.exports = async _ => {

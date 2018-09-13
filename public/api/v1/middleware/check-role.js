@@ -2,7 +2,6 @@
 
 const prequest = require('request-promise-native');
 
-// checks user role
 module.exports = role => {
 
     return async (ctx, next) => {

@@ -1,9 +1,9 @@
-const quizLinks = require('../links/quiz');
+const halQuiz = require('../quiz');
 
 module.exports = async ({ origin, userName, quizzes }) => {
 
     let promises = quizzes.map(async quiz => {
-        return quizLinks({
+        return halQuiz.links({
             origin,
             userName,
             quizId: quiz.id
