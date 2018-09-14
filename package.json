@@ -10,6 +10,8 @@
     "camelcase": "^5.0.0",
     "camelcase-keys": "^4.2.0",
     "decamelize": "^2.0.0",
+    "joi": "^13.6.0",
+    "jsonschema": "^1.2.4",
     "knex": "^0.15.2",
     "koa": "^2.5.2",
     "koa-better-router": "^2.1.1",

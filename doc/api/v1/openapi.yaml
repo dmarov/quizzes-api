@@ -16,7 +16,7 @@ components:
       type: http
       scheme: bearer
       bearerFormat: JWT
-      description: "JSON Web Token payload format: { role: \"user\", user: \"bright-ege\" }"
+      description: "JSON Web Token payload format: { role: \"admin\", user: \"bright-ege\" }"
 
 servers:
   - url: https://api.quiz.websm.io/{version}
@@ -62,9 +62,3 @@ paths:
     $ref: 'components/paths/quiz-instance-questions.yaml'
   /users/{userName}/quizzes/{quizId}/instances/{instanceId}/responses:
     $ref: 'components/paths/quiz-instance-responses.yaml'
-  # for stateful service ?
-  # /users/{userName}/quizzes/{quizId}/instances/{instanceId}/nextquestion:
-  # /users/{userName}/quizzes/{quizId}/instances/{instanceId}/responses/answer:
-  # metadata ?
-  # /meta:
-  #   $ref: 'components/paths/metadata.yaml'

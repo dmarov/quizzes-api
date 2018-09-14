@@ -22,11 +22,10 @@ module.exports = async _ => {
 
     const DOC_PATH = path.resolve(__dirname, '../../../doc/api/v1/openapi.html');
     const routes = Router().loadMethods();
-    routes.get('/', async ctx => {
 
+    routes.get('/', async ctx => {
         ctx.set("Content-Type", "text/html");
         ctx.body = fs.createReadStream(DOC_PATH);
-
     });
 
     routes.extend(Routes);
@@ -38,7 +37,7 @@ module.exports = async _ => {
         await next();
     });
 
-    app.use(bodyParser());
+    app.use(bodyParser({ strict: false }));
     app.use(jwtParser());
     app.use(routes.middleware());
 

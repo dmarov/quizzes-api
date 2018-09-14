@@ -1,10 +1,10 @@
 const Router = require('koa-better-router');
+const camelCaseKeys = require('camelcase-keys');
+const snakeCaseKeys = require('snakecase-keys');
+const knex = require('knex')({ client: 'pg' });
+
 const { checkRole, checkUser, user } = require('../middleware');
-const camelcaseKeys = require('camelcase-keys');
-const snakecaseKeys = require('snakecase-keys');
-
 const hal = require('../factory/hal');
-
 const path = '/users/:user/quizzes';
 const routes = Router().loadMethods();
 
@@ -20,7 +20,8 @@ routes.get(path, user(),
         let user = ctx.state.user;
 
         let quizzes = await ctx.db.quiz
-            .find({ user_id: user.id }, { offset, limit });
+            .find({ user_id: user.id }, { offset, limit })
+            .then(res => res.map(item => camelCaseKeys(item)));
 
         let origin = ctx.origin;
         let userName = ctx.params.user;
@@ -37,17 +38,29 @@ routes.get(path, user(),
 routes.post(path, checkRole('admin'), checkUser(), user(),
     async (ctx, next) => {
 
-        let fields = ctx.request.body;
         let user = ctx.state.user;
 
-        let maxSort = await ctx.db.query("SELECT MAX(sort) as max \
-            FROM quiz WHERE user_id = ${user_id}", { user_id: user.id })
+        let qb = knex('quiz')
+            .max({max: 'sort'})
+            .where({ user_id: user.id })
+            .toSQL()
+            .toNative();
+
+        let maxSort = await ctx.db.query(qb.sql, qb.bindings)
             .then(res => res[0])
             .then(res => res ? res.max : 0);
 
         let sort = maxSort + 1;
 
-        let quiz = await ctx.db.quiz.insert({ title: fields.title, user_id: user.id, sort });
+        let fields = snakeCaseKeys(ctx.request.body);
+        delete fields.id;
+        fields.user_id = user.id;
+        delete fields.creation_date;
+        fields.sort = sort;
+        delete fields.tags;
+
+        let quiz = await ctx.db.quiz.insert(fields)
+            .then(res => camelCaseKeys(res));
 
         let origin = ctx.origin;
         let userName = ctx.params.user;
