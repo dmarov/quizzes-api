@@ -3,12 +3,12 @@ const camelCaseKeys = require('camelcase-keys');
 const snakeCaseKeys = require('snakecase-keys');
 const knex = require('knex')({ client: 'pg' });
 
-const { checkRole, checkUser, user, quiz } = require('../middleware');
+const { checkRole, checkUser, user, quiz, question } = require('../middleware');
 const hal = require('../factory/hal');
-const path = '/users/:user/quizzes/:quizId/stats';
+const path = '/users/:user/quizzes/:quizId/stats/:questionId';
 const routes = Router().loadMethods();
 
-routes.get(path, user(), quiz(),
+routes.get(path, user(), quiz(), question(),
     async (ctx, next) => {
 
         let dateFrom = new Date(0).toISOString();
@@ -20,41 +20,27 @@ routes.get(path, user(), quiz(),
         if (ctx.query.dateTo)
             dateTo = (new Date(Date.parse(ctx.query.dateTo))).toISOString();
 
-        let quiz = ctx.state.quiz;
+        let question = ctx.state.question;
 
-        let qb = knex('question')
-            .select()
+        let qb = knex('response')
+            .select(knex.raw(`content->'${question.id}' as answer, COUNT(*)`))
+            .whereBetween('creation_date', [ dateFrom, dateTo ])
             .where({ quiz_id: quiz.id })
+            .groupBy(knex.raw('answer'))
             .toSQL()
             .toNative();
 
-        let questions = await ctx.db.query(qb.sql, qb.bindings);
-
-        let items = [];
-
-        for (let question of questions) {
-
-            let qb = knex('response')
-                .select(knex.raw(`content->'${question.id}' as answer, COUNT(*)`))
-                .whereBetween('creation_date', [ dateFrom, dateTo ])
-                .where({ quiz_id: quiz.id })
-                .groupBy(knex.raw('answer'))
-                .toSQL()
-                .toNative();
-
-            let stats = await ctx.db.query(qb.sql, qb.bindings);
-            items.push({ question, stats });
-        }
+        let stats = await ctx.db.query(qb.sql, qb.bindings);
 
         let origin = ctx.origin;
         let userName = ctx.params.user;
         let quizId = ctx.params.quizId;
 
         let _links = await hal.stats.links({ origin, userName, quizId });
-        let _embedded = await hal.stats.embedded({ origin, userName, quizId, items });
+        let _embedded = await hal.stats.embedded({ origin, userName, quizId });
 
         ctx.set('Content-Type', 'application/hal+json');
-        ctx.body = { _embedded, _links };
+        ctx.body = { question, stats, _embedded, _links };
     }
 );
 

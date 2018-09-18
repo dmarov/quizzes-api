@@ -11,6 +11,7 @@ const question = require('./question');
 const responses = require('./responses');
 const response = require('./response');
 const stats = require('./stats');
+const stat = require('./stat');
 
 const routes = Router();
 
@@ -23,5 +24,6 @@ routes.extend(question);
 routes.extend(responses);
 routes.extend(response);
 routes.extend(stats);
+routes.extend(stat);
 
 module.exports = routes;
