@@ -1,5 +1,5 @@
-UserName:
-  name: userName
+User:
+  name: user
   in: path
   schema:
     type: string
@@ -16,7 +16,7 @@ QuestionId:
   schema:
     type: string
 
-TagName:
+Tag:
   name: tagName
   in: path
   schema:

@@ -33,32 +33,36 @@ servers:
         default: v1
 
 paths:
-  /users/{userName}/quizzes:
+  /users/{user}/quizzes:
     $ref: 'components/paths/quizzes.yaml'
-  /users/{userName}/quizzes/{quizId}:
+  /users/{user}/quizzes/{quizId}:
     $ref: 'components/paths/quiz.yaml'
-  /users/{userName}/quizzes/{quizId}/tags:
+  /users/{user}/quizzes/{quizId}/tags:
     $ref: 'components/paths/quiz-tags.yaml'
-  /users/{userName}/quizzes/{quizId}/tags/{tagName}:
+  /users/{user}/quizzes/{quizId}/tags/{tag}:
     $ref: 'components/paths/quiz-tag.yaml'
-  /users/{userName}/quizzes/{quizId}/questions:
+  /users/{user}/quizzes/{quizId}/questions:
     $ref: 'components/paths/questions.yaml'
-  /users/{userName}/quizzes/{quizId}/questions/{questionId}:
+  /users/{user}/quizzes/{quizId}/questions/{questionId}:
     $ref: 'components/paths/question.yaml'
   # full statistics ?
-  # /users/{userName}/quizzes/{quizId}/statistics:
-  /users/{userName}/quizzes/{quizId}/questions/{questionId}/statistics:
+  # /users/{user}/quizzes/{quizId}/statistics:
+  /users/{user}/quizzes/{quizId}/questions/{questionId}/statistics:
     $ref: 'components/paths/question-statistics.yaml'
-  /users/{userName}/quizzes/{quizId}/questions/{questionId}/tags:
+  /users/{user}/quizzes/{quizId}/questions/{questionId}/tags:
     $ref: 'components/paths/question-tags.yaml'
-  /users/{userName}/quizzes/{quizId}/questions/{questionId}/tags/{tagName}:
+  /users/{user}/quizzes/{quizId}/questions/{questionId}/tags/{tag}:
     $ref: 'components/paths/question-tag.yaml'
-  /users/{userName}/quizzes/{quizId}/instances:
-    $ref: 'components/paths/quiz-instances.yaml'
-  /users/{userName}/quizzes/{quizId}/instances/{instanceId}:
-    $ref: 'components/paths/quiz-instance.yaml'
+  # /users/{user}/quizzes/{quizId}/responses:
+  #   $ref: 'components/paths/responses.yaml'
+  # /users/{user}/quizzes/{quizId}/responses/{responseId}:
+  #   $ref: 'components/paths/response.yaml'
+  # /users/{user}/quizzes/{quizId}/instances:
+  #   $ref: 'components/paths/quiz-instances.yaml'
+  # /users/{user}/quizzes/{quizId}/instances/{instanceId}:
+  #   $ref: 'components/paths/quiz-instance.yaml'
   # for stateless service
-  /users/{userName}/quizzes/{quizId}/instances/{instanceId}/questions:
-    $ref: 'components/paths/quiz-instance-questions.yaml'
-  /users/{userName}/quizzes/{quizId}/instances/{instanceId}/responses:
-    $ref: 'components/paths/quiz-instance-responses.yaml'
+  # /users/{user}/quizzes/{quizId}/instances/{instanceId}/questions:
+  #   $ref: 'components/paths/quiz-instance-questions.yaml'
+  # /users/{user}/quizzes/{quizId}/instances/{instanceId}/responses:
+  #   $ref: 'components/paths/quiz-instance-responses.yaml'

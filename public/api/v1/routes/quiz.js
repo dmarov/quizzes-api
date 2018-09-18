@@ -20,11 +20,7 @@ routes.get(path, user(), quiz(),
         let _links = await hal.quiz.links({ origin, userName, quizId });
         let _embedded = await hal.quiz.embedded({ origin, userName, quizId });
 
-        ctx.body = {
-            ...quiz,
-            _links,
-            _embedded,
-        };
+        ctx.body = { ...quiz, _links, _embedded };
     }
 );
 
@@ -44,10 +40,9 @@ routes.patch(path, checkRole('admin'), checkUser(), user(), quiz(),
                 return;
             } else {
                 tags = JSON.stringify(tags);
+                fields.tags = tags;
             }
         }
-
-        fields.tags = tags;
 
         fields = snakeCaseKeys(fields);
         delete fields.id;
@@ -63,11 +58,7 @@ routes.patch(path, checkRole('admin'), checkUser(), user(), quiz(),
         let _links = await hal.quiz.links({ origin, userName, quizId });
         let _embedded = await hal.quiz.embedded({ origin, userName, quizId });
 
-        ctx.body = {
-            ...quiz,
-            _links,
-            _embedded,
-        };
+        ctx.body = { ...quiz, _links, _embedded };
     },
 );
 
@@ -79,7 +70,7 @@ routes.delete(path, checkRole('admin'), checkUser(), user(), quiz(),
 
         ctx.status = 204;
         ctx.body = 'quiz deleted';
-    },
+    }
 );
 
 module.exports = routes;

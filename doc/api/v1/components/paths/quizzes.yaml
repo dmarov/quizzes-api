@@ -3,7 +3,7 @@ get:
     - jwtAuth: []
   summary: get list of quizzes
   parameters:
-    - $ref: '../params/path.yaml#/UserName'
+    - $ref: '../params/path.yaml#/User'
     - name: offset
       in: query
       schema:

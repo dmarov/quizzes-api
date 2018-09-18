@@ -1,7 +1,7 @@
 parameters:
-  - $ref: '../params/path.yaml#/UserName'
+  - $ref: '../params/path.yaml#/User'
   - $ref: '../params/path.yaml#/QuizId'
-  - $ref: '../params/path.yaml#/TagName'
+  - $ref: '../params/path.yaml#/Tag'
 delete:
   security:
     - jwtAuth: []

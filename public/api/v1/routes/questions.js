@@ -39,12 +39,6 @@ routes.get(path, user(), quiz(),
 routes.post(path, checkRole('admin'), checkUser(), user(), quiz(),
     async (ctx, next) => {
 
-        let fields = ctx.request.body;
-
-        await next();
-    },
-    async (ctx, next) => {
-
         let quiz = ctx.state.quiz;
 
         let qb = knex('question')
@@ -64,8 +58,9 @@ routes.post(path, checkRole('admin'), checkUser(), user(), quiz(),
         fields.quiz_id = quiz.id;
         delete fields.creation_date;
         fields.sort = sort;
+        delete fields.tags;
 
-        let quiz = await ctx.db.question.insert(fields)
+        let question = await ctx.db.question.insert(fields)
             .then(res => camelCaseKeys(res));
 
         let origin = ctx.origin;

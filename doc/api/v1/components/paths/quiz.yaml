@@ -1,5 +1,5 @@
 parameters:
-  - $ref: '../params/path.yaml#/UserName'
+  - $ref: '../params/path.yaml#/User'
   - $ref: '../params/path.yaml#/QuizId'
 get:
   security:
