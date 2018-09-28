@@ -34,35 +34,35 @@ servers:
 
 paths:
   /users/{user}/quizzes:
-    $ref: 'components/paths/quizzes.yaml'
+    $ref: 'components/paths/quizzes.yml'
   /users/{user}/quizzes/{quizId}:
-    $ref: 'components/paths/quiz.yaml'
+    $ref: 'components/paths/quiz.yml'
   /users/{user}/quizzes/{quizId}/tags:
-    $ref: 'components/paths/quiz-tags.yaml'
+    $ref: 'components/paths/quiz-tags.yml'
   /users/{user}/quizzes/{quizId}/tags/{tag}:
-    $ref: 'components/paths/quiz-tag.yaml'
+    $ref: 'components/paths/quiz-tag.yml'
   /users/{user}/quizzes/{quizId}/questions:
-    $ref: 'components/paths/questions.yaml'
+    $ref: 'components/paths/questions.yml'
   /users/{user}/quizzes/{quizId}/questions/{questionId}:
-    $ref: 'components/paths/question.yaml'
+    $ref: 'components/paths/question.yml'
   # full statistics ?
   # /users/{user}/quizzes/{quizId}/statistics:
   /users/{user}/quizzes/{quizId}/questions/{questionId}/statistics:
-    $ref: 'components/paths/question-statistics.yaml'
+    $ref: 'components/paths/question-statistics.yml'
   /users/{user}/quizzes/{quizId}/questions/{questionId}/tags:
-    $ref: 'components/paths/question-tags.yaml'
+    $ref: 'components/paths/question-tags.yml'
   /users/{user}/quizzes/{quizId}/questions/{questionId}/tags/{tag}:
-    $ref: 'components/paths/question-tag.yaml'
+    $ref: 'components/paths/question-tag.yml'
   # /users/{user}/quizzes/{quizId}/responses:
-  #   $ref: 'components/paths/responses.yaml'
+  #   $ref: 'components/paths/responses.yml'
   # /users/{user}/quizzes/{quizId}/responses/{responseId}:
-  #   $ref: 'components/paths/response.yaml'
+  #   $ref: 'components/paths/response.yml'
   # /users/{user}/quizzes/{quizId}/instances:
-  #   $ref: 'components/paths/quiz-instances.yaml'
+  #   $ref: 'components/paths/quiz-instances.yml'
   # /users/{user}/quizzes/{quizId}/instances/{instanceId}:
-  #   $ref: 'components/paths/quiz-instance.yaml'
+  #   $ref: 'components/paths/quiz-instance.yml'
   # for stateless service
   # /users/{user}/quizzes/{quizId}/instances/{instanceId}/questions:
-  #   $ref: 'components/paths/quiz-instance-questions.yaml'
+  #   $ref: 'components/paths/quiz-instance-questions.yml'
   # /users/{user}/quizzes/{quizId}/instances/{instanceId}/responses:
-  #   $ref: 'components/paths/quiz-instance-responses.yaml'
+  #   $ref: 'components/paths/quiz-instance-responses.yml'

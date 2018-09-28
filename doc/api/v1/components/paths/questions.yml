@@ -1,6 +1,6 @@
 parameters:
-  - $ref: '../params/path.yaml#/User'
-  - $ref: '../params/path.yaml#/QuizId'
+  - $ref: '../params/path.yml#/User'
+  - $ref: '../params/path.yml#/QuizId'
 get:
   security:
     - jwtAuth: []
@@ -22,11 +22,11 @@ get:
       content:
         application/json:
           schema:
-            $ref: '../schemas/question.yaml#/PaginatedQuestions'
+            $ref: '../schemas/question.yml#/PaginatedQuestions'
     '401':
-      $ref: '../responses/not-authorized.yaml'
+      $ref: '../responses/not-authorized.yml'
     '403':
-      $ref: '../responses/forbidden.yaml'
+      $ref: '../responses/forbidden.yml'
   tags:
     - questions
 post:
@@ -42,19 +42,19 @@ post:
             type:
               type: string
             # content:
-            #   $ref: '../schemas/question-content.yaml#/Content'
+            #   $ref: '../schemas/question-content.yml#/Content'
             # response:
-            #   $ref: '../schemas/question-response.yaml#/Response'
+            #   $ref: '../schemas/question-response.yml#/Response'
   responses:
     '201':
       description: question created
       content:
         application/json:
           schema:
-            $ref: '../schemas/question.yaml#/Question'
+            $ref: '../schemas/question.yml#/Question'
     '401':
-      $ref: '../responses/not-authorized.yaml'
+      $ref: '../responses/not-authorized.yml'
     '403':
-      $ref: '../responses/forbidden.yaml'
+      $ref: '../responses/forbidden.yml'
   tags:
     - questions

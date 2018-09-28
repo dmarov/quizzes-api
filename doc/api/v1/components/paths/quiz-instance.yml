@@ -1,6 +1,6 @@
 parameters:
-  - $ref: '../params/path.yaml#/User'
-  - $ref: '../params/path.yaml#/QuizId'
+  - $ref: '../params/path.yml#/User'
+  - $ref: '../params/path.yml#/QuizId'
 get:
   security:
     - jwtAuth: []
@@ -11,8 +11,8 @@ get:
       content:
         application/json:
           schema:
-            $ref: '../schemas/quiz-instance.yaml#/QuizInstance'
+            $ref: '../schemas/quiz-instance.yml#/QuizInstance'
     '401':
-      $ref: '../responses/not-authorized.yaml'
+      $ref: '../responses/not-authorized.yml'
   tags:
     - quiz instance

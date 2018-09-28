@@ -6,7 +6,7 @@ QuizInstance:
       type: string
       example: quizInstanceId1
     quiz:
-      $ref: 'quiz.yaml#/Quiz'
+      $ref: 'quiz.yml#/Quiz'
     creationDate:
       type: string
       pattern: /\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}/
@@ -22,13 +22,13 @@ QuizInstanceQuestion:
   title: quiz instance question
   type: object
   allOf:
-    - $ref: 'question.yaml#/Question'
+    - $ref: 'question.yml#/Question'
 
 QuizInstancePaginatedQuestions:
   title: paginated list of quiz instance questions
   type: object
   allOf:
-    - $ref: 'pagination.yaml'
+    - $ref: 'pagination.yml'
   properties:
     results:
       items:

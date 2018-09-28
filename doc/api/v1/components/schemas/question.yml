@@ -6,17 +6,17 @@ Question:
       type: string
       example: 123abc
     response:
-      $ref: 'question-response.yaml#/Response'
+      $ref: 'question-response.yml#/Response'
     content:
-      $ref: 'question-content.yaml#/Content'
+      $ref: 'question-content.yml#/Content'
     tags:
-      $ref: 'tag.yaml#/Tags'
+      $ref: 'tag.yml#/Tags'
 
 PaginatedQuestions:
   title: paginated list of questions
   type: object
   allOf:
-    - $ref: 'pagination.yaml'
+    - $ref: 'pagination.yml'
   properties:
     results:
       items:

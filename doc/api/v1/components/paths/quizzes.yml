@@ -3,7 +3,7 @@ get:
     - jwtAuth: []
   summary: get list of quizzes
   parameters:
-    - $ref: '../params/path.yaml#/User'
+    - $ref: '../params/path.yml#/User'
     - name: offset
       in: query
       schema:
@@ -20,11 +20,11 @@ get:
       content:
         application/json:
           schema:
-            $ref: '../schemas/quiz.yaml#/PaginatedQuizzes'
+            $ref: '../schemas/quiz.yml#/PaginatedQuizzes'
     '401':
-      $ref: '../responses/not-authorized.yaml'
+      $ref: '../responses/not-authorized.yml'
     '403':
-      $ref: '../responses/forbidden.yaml'
+      $ref: '../responses/forbidden.yml'
   tags:
     - quizzes
 
@@ -49,10 +49,10 @@ post:
       content:
         application/json:
           schema:
-            $ref: '../schemas/quiz.yaml#/Quiz'
+            $ref: '../schemas/quiz.yml#/Quiz'
     '401':
-      $ref: '../responses/not-authorized.yaml'
+      $ref: '../responses/not-authorized.yml'
     '403':
-      $ref: '../responses/forbidden.yaml'
+      $ref: '../responses/forbidden.yml'
   tags:
     - quizzes

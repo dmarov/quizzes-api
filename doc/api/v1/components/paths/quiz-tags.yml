@@ -1,21 +1,20 @@
 parameters:
-  - $ref: '../params/path.yaml#/User'
-  - $ref: '../params/path.yaml#/QuizId'
-  - $ref: '../params/path.yaml#/QuestionId'
+  - $ref: '../params/path.yml#/User'
+  - $ref: '../params/path.yml#/QuizId'
 get:
   security:
     - jwtAuth: []
-  summary: get list of question tags
+  summary: get list of quiz tags
   responses:
     '200':
       content:
         application/json:
           schema:
-            $ref: '../schemas/tag.yaml#/Tags'
+            $ref: '../schemas/tag.yml#/Tags'
     '401':
-      $ref: '../responses/not-authorized.yaml'
+      $ref: '../responses/not-authorized.yml'
     '403':
-      $ref: '../responses/forbidden.yaml'
+      $ref: '../responses/forbidden.yml'
   tags:
     - question
     - tags
@@ -23,7 +22,7 @@ get:
 post:
   security:
     - jwtAuth: []
-  summary: append question tag
+  summary: append quiz tag
   requestBody:
     description: provides tag name
     content:
@@ -38,9 +37,9 @@ post:
     '201':
       description: tag appended
     '401':
-      $ref: '../responses/not-authorized.yaml'
+      $ref: '../responses/not-authorized.yml'
     '403':
-      $ref: '../responses/forbidden.yaml'
+      $ref: '../responses/forbidden.yml'
   tags:
     - question
     - tags

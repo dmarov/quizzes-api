@@ -1,0 +1,22 @@
+parameters:
+  - $ref: '../params/path.yml#/User'
+  - $ref: '../params/path.yml#/QuizId'
+  - $ref: '../params/path.yml#/QuestionId'
+get:
+  security:
+    - jwtAuth: []
+  summary: get question statistics
+  responses:
+    '200':
+      content:
+        application/json:
+          schema:
+            $ref: '../schemas/question-statistics.yml#/QuestionStatistics'
+    '401':
+      $ref: '../responses/not-authorized.yml'
+    '403':
+      $ref: '../responses/forbidden.yml'
+    '404':
+      $ref: '../responses/not-found.yml'
+  tags:
+    - question

@@ -1,5 +1,5 @@
 parameters:
-  - $ref: '../params/path.yaml#/QuizId'
+  - $ref: '../params/path.yml#/QuizId'
 post:
   security:
     - jwtAuth: []
@@ -9,7 +9,7 @@ post:
     content:
       application/json:
         schema:
-          $ref: '../schemas/quiz-instance.yaml#/QuizInstanceResponse'
+          $ref: '../schemas/quiz-instance.yml#/QuizInstanceResponse'
 
   responses:
     '201':
@@ -17,10 +17,10 @@ post:
       content:
         application/json:
           schema:
-            $ref: '../schemas/quiz-instance.yaml#/QuizInstanceResponse'
+            $ref: '../schemas/quiz-instance.yml#/QuizInstanceResponse'
     '401':
-      $ref: '../responses/not-authorized.yaml'
+      $ref: '../responses/not-authorized.yml'
     '403':
-      $ref: '../responses/forbidden.yaml'
+      $ref: '../responses/forbidden.yml'
   tags:
     - quiz instance

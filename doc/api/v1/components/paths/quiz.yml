@@ -1,6 +1,6 @@
 parameters:
-  - $ref: '../params/path.yaml#/User'
-  - $ref: '../params/path.yaml#/QuizId'
+  - $ref: '../params/path.yml#/User'
+  - $ref: '../params/path.yml#/QuizId'
 get:
   security:
     - jwtAuth: []
@@ -11,11 +11,11 @@ get:
       content:
         application/json:
           schema:
-            $ref: '../schemas/quiz.yaml#/Quiz'
+            $ref: '../schemas/quiz.yml#/Quiz'
     '401':
-      $ref: '../responses/not-authorized.yaml'
+      $ref: '../responses/not-authorized.yml'
     '404':
-      $ref: '../responses/not-found.yaml'
+      $ref: '../responses/not-found.yml'
   tags:
     - quiz
 delete:
@@ -26,10 +26,10 @@ delete:
     '204':
       description: quiz deleted
     '401':
-      $ref: '../responses/not-authorized.yaml'
+      $ref: '../responses/not-authorized.yml'
     '403':
-      $ref: '../responses/forbidden.yaml'
+      $ref: '../responses/forbidden.yml'
     '404':
-      $ref: '../responses/not-found.yaml'
+      $ref: '../responses/not-found.yml'
   tags:
     - quiz

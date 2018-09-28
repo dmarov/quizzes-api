@@ -1,7 +1,7 @@
 parameters:
-  - $ref: '../params/path.yaml#/User'
-  - $ref: '../params/path.yaml#/QuizId'
-  - $ref: '../params/path.yaml#/QuestionId'
+  - $ref: '../params/path.yml#/User'
+  - $ref: '../params/path.yml#/QuizId'
+  - $ref: '../params/path.yml#/QuestionId'
 get:
   security:
     - jwtAuth: []
@@ -11,13 +11,13 @@ get:
       content:
         application/json:
           schema:
-            $ref: '../schemas/question.yaml#/Question'
+            $ref: '../schemas/question.yml#/Question'
     '401':
-      $ref: '../responses/not-authorized.yaml'
+      $ref: '../responses/not-authorized.yml'
     '403':
-      $ref: '../responses/forbidden.yaml'
+      $ref: '../responses/forbidden.yml'
     '404':
-      $ref: '../responses/not-found.yaml'
+      $ref: '../responses/not-found.yml'
   tags:
     - question
 
@@ -33,15 +33,15 @@ patch:
             type: object
             properties:
               response:
-                $ref: '../schemas/question-response.yaml#/Response'
+                $ref: '../schemas/question-response.yml#/Response'
               content:
-                $ref: '../schemas/question-content.yaml#/Content'
+                $ref: '../schemas/question-content.yml#/Content'
     '401':
-      $ref: '../responses/not-authorized.yaml'
+      $ref: '../responses/not-authorized.yml'
     '403':
-      $ref: '../responses/forbidden.yaml'
+      $ref: '../responses/forbidden.yml'
     '404':
-      $ref: '../responses/not-found.yaml'
+      $ref: '../responses/not-found.yml'
   tags:
     - question
 
@@ -53,10 +53,10 @@ delete:
     '204':
       description: question deleted
     '401':
-      $ref: '../responses/not-authorized.yaml'
+      $ref: '../responses/not-authorized.yml'
     '403':
-      $ref: '../responses/forbidden.yaml'
+      $ref: '../responses/forbidden.yml'
     '404':
-      $ref: '../responses/not-found.yaml'
+      $ref: '../responses/not-found.yml'
   tags:
     - question

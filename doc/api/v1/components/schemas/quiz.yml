@@ -20,7 +20,7 @@ PaginatedQuizzes:
   type: object
   description: paginated list of quizzes
   allOf:
-    - $ref: 'pagination.yaml'
+    - $ref: 'pagination.yml'
   properties:
     results:
       items:
