@@ -10,7 +10,7 @@ module.exports = _ => {
         let questionId = ctx.params.questionId;
 
         let question = await ctx.db.question
-            .findOne({ id: quizId });
+            .findOne({ id: questionId });
 
         if (question === null) {
             ctx.status = 404;

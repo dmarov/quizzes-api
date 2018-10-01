@@ -2,14 +2,16 @@ const Router = require('koa-better-router');
 const camelCaseKeys = require('camelcase-keys');
 const snakeCaseKeys = require('snakecase-keys');
 const knex = require('knex')({ client: 'pg' });
-const { validate } = require('jsonschema');
 
 const { checkRole, checkUser, user, quiz, question } = require('../middleware');
 const hal = require('../factory/hal');
 const path = '/users/:user/quizzes/:quizId/questions/:questionId';
 const routes = Router().loadMethods();
 
-let tagsSchema = require('../schemas/tags');
+const validator = require('../factory/validator');
+const validateContent = validator.question.content;
+const validateResponse = validator.question.response;
+const validateTags = validator.tags;
 
 routes.get(path, user(), quiz(), question(),
     async (ctx, next) => {
@@ -39,21 +41,38 @@ routes.patch(path, user(), quiz(), question(),
         delete fields.quiz_id;
         delete fields.sort;
         delete fields.creation_date;
+        delete fields.tags;
 
-        let tags = fields.tags;
-
-        if (tags) {
-
-            let res = validate(tags, tagsSchema);
-            if (res.errors.length) {
-                ctx.status = 422;
-                ctx.body = 'invalid tags';
-                return;
-            } else {
-                tags = JSON.stringify(tags);
-                fields.tags = tags;
-            }
+        try {
+            fields.content = await validateContent(fields.content);
+            fields.response = await validateResponse(fields.response);
+        } catch(e) {
+            ctx.status = 422;
+            ctx.body = e.message;
         }
+
+        // let tags = fields.tags;
+
+        // try {
+        //     tags = await validateTags(tags);
+        // } catch(e) {
+
+        //     switch(e.name) {
+        //         case 'unique error':
+        //             ctx.status = 409;
+        //             ctx.body = 'tag exists';
+        //             return;
+        //         case 'type error':
+        //             ctx.status = 422;
+        //             ctx.body = 'invalid tag';
+        //             return;
+        //         default:
+        //             throw e;
+        //     }
+
+        // }
+
+        // fields.tags = JSON.stringify(tags);
 
         question = await ctx.db.question.update({ id: question.id }, fields);
 

@@ -1,15 +1,15 @@
 const Router = require('koa-better-router');
-const { checkRole, checkUser, user, quiz } = require('../middleware');
+const { checkRole, checkUser, user, quiz, question } = require('../middleware');
 
-const path = '/users/:user/quizzes/:quizId/tags/:tag';
+const path = '/users/:user/quizzes/:quizId/questions/:questionId/tags/:tag';
 const routes = Router().loadMethods();
 
-routes.delete(path, checkRole('admin'), checkUser(), user(), quiz(),
+routes.delete(path, checkRole('admin'), checkUser(), user(), quiz(), question(),
     async (ctx, next) => {
 
-        let quiz = ctx.state.quiz;
+        let question = ctx.state.question;
         let tag = ctx.params.tag;
-        let tags = quiz.tags;
+        let tags = question.tags;
 
         let index = tags.indexOf(tag);
 
@@ -21,7 +21,7 @@ routes.delete(path, checkRole('admin'), checkUser(), user(), quiz(),
         }
 
         tags = JSON.stringify(tags);
-        quiz = await ctx.db.quiz.update({ id: quiz.id }, { tags });
+        question = await ctx.db.question.update({ id: quiz.id }, { tags });
 
     },
 );

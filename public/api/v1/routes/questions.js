@@ -8,6 +8,10 @@ const hal = require('../factory/hal');
 const path = '/users/:user/quizzes/:quizId/questions';
 const routes = Router().loadMethods();
 
+const validator = require('../factory/validator');
+const validateContent = validator.question.content;
+const validateResponse = validator.question.response;
+
 routes.get(path, user(), quiz(),
     async (ctx, next) => {
 
@@ -60,6 +64,24 @@ routes.post(path, checkRole('admin'), checkUser(), user(), quiz(),
         fields.sort = sort;
         delete fields.tags;
 
+        if (fields.content)
+        try {
+            fields.content = await validateContent(fields.content);
+        } catch (e) {
+            ctx.status = 422;
+            ctx.body = 'invalid question content specified';
+            return;
+        }
+
+        if (fields.response)
+        try {
+            fields.response = await validateResponse(fields.response);
+        } catch (e) {
+            ctx.status = 422;
+            ctx.body = 'invalid question response specified';
+            return;
+        }
+
         let question = await ctx.db.question.insert(fields)
             .then(res => camelCaseKeys(res));
 
@@ -73,7 +95,7 @@ routes.post(path, checkRole('admin'), checkUser(), user(), quiz(),
 
         ctx.set('Content-Type', 'application/hal+json');
         ctx.body = {
-            ...quiz,
+            ...question,
             _links,
             _embedded,
         };

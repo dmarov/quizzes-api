@@ -1,25 +1,25 @@
 const Router = require('koa-better-router');
-const { checkRole, checkUser, user, quiz } = require('../middleware');
+const { checkRole, checkUser, user, quiz, question } = require('../middleware');
 const hal = require('../factory/hal');
 
-const path = '/users/:user/quizzes/:quizId/tags';
+const path = '/users/:user/quizzes/:quizId/questions/:questionId/tags';
 const routes = Router().loadMethods();
 
 const validator = require('../factory/validator');
 const validateTags = validator.tags;
 
-routes.get(path, checkRole('admin'), checkUser(), user(), quiz(),
+routes.get(path, checkRole('admin'), checkUser(), user(), quiz(), question(),
     async (ctx, next) => {
 
-        let quiz = ctx.state.quiz;
-        let tags = quiz.tags;
+        let question = ctx.state.question;
+        let tags = question.tags;
 
         let origin = ctx.origin;
         let userName = ctx.params.user;
-        let quizId = quiz.id;
+        let questionId = question.id;
 
-        let _links = await hal.quizTags.links({ origin, userName, quizId, tags })
-        let _embedded = await hal.quizTags.embedded({ origin, userName, quizId, tags })
+        let _links = await hal.questionTags.links({ origin, userName, quizId, questionId, tags })
+        let _embedded = await hal.questionTags.embedded({ origin, userName, quizId, questionId, tags })
         let count = tags.length;
 
         ctx.body = {
@@ -30,12 +30,12 @@ routes.get(path, checkRole('admin'), checkUser(), user(), quiz(),
     },
 );
 
-routes.post(path, checkRole('admin'), checkUser(), user(), quiz(),
+routes.post(path, checkRole('admin'), checkUser(), user(), quiz(), question(),
     async (ctx, next) => {
 
         let newTag = ctx.request.body;
-        let quiz = ctx.state.quiz;
-        let tags = quiz.tags;
+        let question = ctx.state.question;
+        let tags = question.tags;
         tags.push(newTag);
 
         try {
@@ -58,7 +58,7 @@ routes.post(path, checkRole('admin'), checkUser(), user(), quiz(),
         }
 
         tags = JSON.stringify(tags);
-        quiz = await ctx.db.quiz.update({ id: quiz.id }, { tags });
+        question = await ctx.db.question.update({ id: question.id }, { tags });
 
         ctx.body = newTag;
     },
