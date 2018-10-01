@@ -19,8 +19,20 @@ routes.get(path, user(),
 
         let user = ctx.state.user;
 
-        let quizzes = await ctx.db.quiz
-            .find({ user_id: user.id }, { offset, limit })
+        let qb = knex('quiz')
+            .where({ user_id: user.id })
+            .offset(offset)
+            .limit(limit);
+
+        let tags = ctx.query.tags;
+
+        if (tags)
+            qb = qb.where(knex.raw('tags @> :tags::jsonb', { tags: JSON.stringify(tags) }))
+
+        qb = qb.toSQL()
+            .toNative();
+
+        let quizzes = await ctx.db.query(qb.sql, qb.bindings)
             .then(res => res.map(item => camelCaseKeys(item)));
 
         let origin = ctx.origin;
