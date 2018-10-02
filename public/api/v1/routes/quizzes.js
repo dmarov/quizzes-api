@@ -106,29 +106,22 @@ routes.patch(path, checkRole('admin'), checkUser(), user(),
 
                 for(let patch of diff) {
 
-                    let props = patch.props;
-                    props = snakeCaseKeys(props);
+                    patch = snakeCaseKeys(patch);
 
-                    delete props.id;
-                    delete props.user_id;
-                    delete props.creation_date;
-                    delete props.tags;
+                    let id = patch.id;
+                    delete patch.id;
+                    delete patch.user_id;
+                    delete patch.creation_date;
+                    delete patch.tags;
 
-                    if (patch.op == 'replace') {
+                    let patchedQuizzes = await tx.quiz.update({
+                        user_id: user.id, id,
+                    },
+                        patch
+                    ).then(res => camelCaseKeys(res));
 
-                        let quiz = await tx.quiz.update({
-                            user_id: user.id,
-                            id: patch.id,
-                        },
-                            props
-                        ).then(res => camelCaseKeys(res));
-
-                        console.log(quiz);
-                        if (quiz) quizzes.push(quiz);
-                        else throw {code: 404, message: 'quiz not found'};
-
-                    } else throw {code: 422, message: "invalid operation"};
-
+                    if (patchedQuizzes.length > 0) quizzes.push(patchedQuizzes[0]);
+                    else throw {code: 404, message: 'quiz not found'};
                 }
 
                 return quizzes;
@@ -142,14 +135,8 @@ routes.patch(path, checkRole('admin'), checkUser(), user(),
         let origin = ctx.origin;
         let userName = ctx.params.user;
 
-        let _links = await hal.quizzes.links({ origin, userName });
-        let _embedded = await hal.quizzes.embedded({ origin, userName });
-
-        ctx.set('Content-Type', 'application/hal+json');
-        ctx.body = {
-            _links,
-            _embedded,
-        };
+        ctx.status = 204;
     }
 );
+
 module.exports = routes;
