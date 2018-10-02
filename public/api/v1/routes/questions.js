@@ -115,4 +115,51 @@ routes.post(path, checkRole('admin'), checkUser(), user(), quiz(),
     }
 );
 
+routes.patch(path, checkRole('admin'), checkUser(), user(), quiz(),
+    async (ctx, next) => {
+
+        let quiz = ctx.state.quiz;
+        let diff = ctx.request.body;
+
+        let questions;
+        try {
+
+            questions = await ctx.db.withTransaction(async tx => {
+
+                let questions = [];
+
+                for(let patch of diff) {
+
+                    patch = snakeCaseKeys(patch);
+
+                    let id = patch.id;
+                    delete patch.id;
+                    delete patch.quiz_id;
+                    delete patch.content;
+                    delete patch.response;
+                    delete patch.creation_date;
+                    delete patch.tags;
+
+                    let patchedQuestions = await tx.question.update({
+                        quiz_id: quiz.id, id,
+                    },
+                        patch
+                    ).then(res => camelCaseKeys(res));
+
+                    if (patchedQuestions.length > 0) questions.push(patchedQuestions[0]);
+                    else throw {code: 404, message: 'question not found'};
+                }
+
+                return questions;
+            });
+        } catch(e) {
+            ctx.status = e.code ? e.code : 500;
+            ctx.body = e.message;
+            return;
+        }
+
+        ctx.status = 204;
+    }
+);
+
 module.exports = routes;

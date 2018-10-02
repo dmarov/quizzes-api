@@ -66,12 +66,6 @@ module.exports = async response => {
         case 'multiple options': {
             let res = Validator.validate(response, multipleOptionsSchema);
 
-            // response.options.sort((a, b) => {
-            //     let aJson = JSON.stringify(a);
-            //     let bJson = JSON.stringify(b);
-            //     return a.localeCompare(b);
-            // });
-
             if (res.errors.length > 0)
                 throw new Error('invalid response');
             break;

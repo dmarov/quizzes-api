@@ -132,9 +132,6 @@ routes.patch(path, checkRole('admin'), checkUser(), user(),
             return;
         }
 
-        let origin = ctx.origin;
-        let userName = ctx.params.user;
-
         ctx.status = 204;
     }
 );

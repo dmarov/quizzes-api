@@ -5,6 +5,8 @@ const knex = require('knex')({ client: 'pg' });
 
 const { checkRole, checkUser, user, quiz } = require('../middleware');
 const hal = require('../factory/hal');
+const validator = require('../factory/validator');
+const validateContent = validator.response.content;
 const path = '/users/:user/quizzes/:quizId/responses';
 const routes = Router().loadMethods();
 
@@ -13,7 +15,22 @@ routes.post(path, user(), quiz(),
 
         let quiz = ctx.state.quiz;
 
+        let qb = knex('question')
+            .select()
+            .where({ quiz_id: quiz.id })
+            .toSQL()
+            .toNative();
+
+        let questions = await ctx.db.query(qb.sql, qb.bindings);
+
         let content = ctx.request.body;
+        try {
+            content = await validateContent(content, questions);
+        } catch(e) {
+            ctx.status = e.code ? e.code : 500;
+            ctx.body = e.message;
+            return;
+        }
 
         let response = await ctx.db.response.insert({ quiz_id: quiz.id, content })
             .then(res => camelCaseKeys(res));
