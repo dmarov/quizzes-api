@@ -21,6 +21,7 @@ routes.get(path, user(),
 
         let qb = knex('quiz')
             .where({ user_id: user.id })
+            .orderBy('sort')
             .offset(offset)
             .limit(limit);
 
@@ -90,4 +91,65 @@ routes.post(path, checkRole('admin'), checkUser(), user(),
     }
 );
 
+routes.patch(path, checkRole('admin'), checkUser(), user(),
+    async (ctx, next) => {
+
+        let user = ctx.state.user;
+        let diff = ctx.request.body;
+
+        let quizzes;
+        try {
+
+            quizzes = await ctx.db.withTransaction(async tx => {
+
+                let quizzes = [];
+
+                for(let patch of diff) {
+
+                    let props = patch.props;
+                    props = snakeCaseKeys(props);
+
+                    delete props.id;
+                    delete props.user_id;
+                    delete props.creation_date;
+                    delete props.tags;
+
+                    if (patch.op == 'replace') {
+
+                        let quiz = await tx.quiz.update({
+                            user_id: user.id,
+                            id: patch.id,
+                        },
+                            props
+                        ).then(res => camelCaseKeys(res));
+
+                        console.log(quiz);
+                        if (quiz) quizzes.push(quiz);
+                        else throw {code: 404, message: 'quiz not found'};
+
+                    } else throw {code: 422, message: "invalid operation"};
+
+                }
+
+                return quizzes;
+            });
+        } catch(e) {
+            ctx.status = e.code ? e.code : 500;
+            ctx.body = e.message;
+            return;
+        }
+
+        let origin = ctx.origin;
+        let userName = ctx.params.user;
+
+        let _links = await hal.quizzes.links({ origin, userName });
+        let _embedded = await hal.quizzes.embedded({ origin, userName });
+
+        ctx.set('Content-Type', 'application/hal+json');
+        ctx.body = {
+            _links,
+            _embedded,
+        };
+    }
+);
 module.exports = routes;

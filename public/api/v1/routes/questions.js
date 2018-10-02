@@ -25,6 +25,7 @@ routes.get(path, user(), quiz(),
 
         let qb = knex('question')
             .where({ quiz_id: quiz.id })
+            .orderBy('sort')
             .offset(offset)
             .limit(limit);
 
