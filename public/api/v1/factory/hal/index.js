@@ -1,3 +1,5 @@
+const users = require('./users');
+const user = require('./user');
 const quiz = require('./quiz');
 const quizzes = require('./quizzes');
 const quizTags = require('./quiz-tags');
@@ -8,6 +10,8 @@ const response = require('./response');
 const stats = require('./stats');
 
 module.exports = {
+    users,
+    user,
     quiz,
     quizzes,
     quizTags,

@@ -2,10 +2,12 @@
 
 const Router = require('koa-better-router');
 
-const quizzesRoutes = require('./quizzes');
-const quizRoutes = require('./quiz');
-const quizTagsRoutes = require('./quiz-tags');
-const quizTagRoutes = require('./quiz-tag');
+const users = require('./users');
+const user = require('./user');
+const quizzes = require('./quizzes');
+const quiz = require('./quiz');
+const quizTags = require('./quiz-tags');
+const quizTag = require('./quiz-tag');
 const questions = require('./questions');
 const question = require('./question');
 const questionTags = require('./question-tags');
@@ -17,10 +19,12 @@ const stat = require('./stat');
 
 const routes = Router();
 
-routes.extend(quizzesRoutes);
-routes.extend(quizRoutes);
-routes.extend(quizTagsRoutes);
-routes.extend(quizTagRoutes);
+routes.extend(users);
+routes.extend(user);
+routes.extend(quizzes);
+routes.extend(quiz);
+routes.extend(quizTags);
+routes.extend(quizTag);
 routes.extend(questions);
 routes.extend(question);
 routes.extend(questionTags);

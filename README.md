@@ -3,7 +3,6 @@
 *installation*
 ```
 yarn
-babel -d ./public ./src
 ```
 
 *running*
