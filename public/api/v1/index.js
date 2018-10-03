@@ -15,7 +15,7 @@ module.exports = async _ => {
     let db = await massive({
         host: process.env.PG_HOST,
         port: process.env.PG_PORT ? process.env.PG_PORT: 5432,
-        user: process.env.PG_USER,
+        user: 'quizzes_api',
         password: process.env.PG_PASSWORD,
         database: "quizzes_api_v1",
     });

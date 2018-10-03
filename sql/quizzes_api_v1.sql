@@ -49,13 +49,14 @@ CREATE TABLE "public"."response" (
 
 DROP TABLE IF EXISTS "user";
 DROP SEQUENCE IF EXISTS user_id_seq;
-CREATE SEQUENCE user_id_seq INCREMENT 1 MINVALUE 1 MAXVALUE 2147483647 START 1 CACHE 1;
+CREATE SEQUENCE user_id_seq INCREMENT 1 MINVALUE 1 MAXVALUE 2147483647 START 11 CACHE 1;
 
 CREATE TABLE "public"."user" (
     "id" integer DEFAULT nextval('user_id_seq') NOT NULL,
     "name" character varying(100) NOT NULL,
-    CONSTRAINT "user_id" PRIMARY KEY ("id")
+    CONSTRAINT "user_id" PRIMARY KEY ("id"),
+    CONSTRAINT "user_name" UNIQUE ("name")
 ) WITH (oids = false);
 
 
--- 2018-10-02 17:18:25.557088+03
+-- 2018-10-03 11:16:27.612075+03
