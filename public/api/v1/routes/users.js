@@ -56,8 +56,16 @@ routes.post(path, checkRole('api-admin'),
             return;
         }
 
-        let user = await ctx.db.user.insert(fields)
-            .then(res => camelCaseKeys(res));
+        let user;
+
+        try {
+            user = await ctx.db.user.insert(fields)
+                .then(res => camelCaseKeys(res));
+        } catch(e) {
+            ctx.status = 409;
+            ctx.body = e.message;
+            return;
+        }
 
         let origin = ctx.origin;
         let userName = user.name;
@@ -67,7 +75,7 @@ routes.post(path, checkRole('api-admin'),
 
         ctx.set('Content-Type', 'application/hal+json');
         ctx.body = {
-            ...question,
+            ...user,
             _links,
             _embedded,
         };

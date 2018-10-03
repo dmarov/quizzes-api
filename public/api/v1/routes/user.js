@@ -16,8 +16,8 @@ routes.get(path, user(),
         let origin = ctx.origin;
         let user = ctx.state.user;
         let userName = ctx.params.user;
-        let _links = await hal.quiz.links({ origin, userName });
-        let _embedded = await hal.quiz.embedded({ origin, userName });
+        let _links = await hal.user.links({ origin, userName });
+        let _embedded = await hal.user.embedded({ origin, userName });
 
         ctx.body = { ...user, _links, _embedded };
     }
@@ -39,26 +39,26 @@ routes.patch(path, checkRole('api-admin'), user(),
             return;
         }
 
-        user = await ctx.db.user.update({ id: user.id }, fields)
-            .then(res => camelCaseKeys(res));
+        try {
+            user = await ctx.db.user.update({ id: user.id }, fields)
+                .then(res => camelCaseKeys(res));
+        } catch(e) {
+            ctx.status = 409;
+            ctx.body = e.message;
+            return;
+        }
 
-        let origin = ctx.origin;
-        let userName = ctx.params.user;
-        let _links = await hal.user.links({ origin, userName });
-        let _embedded = await hal.user.embedded({ origin, userName });
-
-        ctx.body = { ...user, _links, _embedded };
+        ctx.status = 204;
     },
 );
 
-routes.delete(path, checkRole('api-admin'),
+routes.delete(path, checkRole('api-admin'), user(),
     async (ctx, next) => {
 
         let user = ctx.state.user;
         user = await ctx.db.user.destroy({ id: user.id });
 
         ctx.status = 204;
-        ctx.body = 'quiz deleted';
     }
 );
 
