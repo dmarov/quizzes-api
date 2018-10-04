@@ -32,7 +32,7 @@ post:
     content:
       application/json:
         schema:
-            $ref: '../schemas/quiz.yml#/QuizTitle'
+          $ref: '../schemas/quiz.yml#/QuizTitle'
     required: true
   responses:
     '201':

@@ -33,7 +33,6 @@ routes.patch(path, checkRole('admin'), checkUser(), user(), quiz(),
         delete fields.id;
         delete fields.user_id;
         delete fields.creation_date;
-        delete fields.sort;
         delete fields.tags;
 
         let quiz = await ctx.db.quiz.update({ id: quizId }, fields)

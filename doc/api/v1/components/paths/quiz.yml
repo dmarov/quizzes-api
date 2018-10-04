@@ -1,13 +1,12 @@
 parameters:
   - $ref: '../params/path.yml#/User'
   - $ref: '../params/path.yml#/QuizId'
+
 get:
-  security:
-    - jwtAuth: []
   summary: get quiz by id
   responses:
     '200':
-      description: 
+      description: quiz
       content:
         application/json:
           schema:
@@ -18,17 +17,39 @@ get:
       $ref: '../responses/not-found.yml'
   tags:
     - quiz
+
+patch:
+  security:
+    - jwtAdmin: []
+  summary: update quiz
+  requestBody:
+    description: diff object
+    content:
+      application/json:
+        schema:
+          type: object
+          additionalProperties: true
+          example:
+            sort: 3
+  responses:
+    '204':
+      description: quiz updated
+    '401':
+      $ref: '../responses/not-authorized.yml'
+    '404':
+      $ref: '../responses/not-found.yml'
+  tags:
+    - quiz
+
 delete:
   security:
-    - jwtAuth: []
+    - jwtAdmin: []
   summary: delete quiz
   responses:
     '204':
       description: quiz deleted
     '401':
       $ref: '../responses/not-authorized.yml'
-    '403':
-      $ref: '../responses/forbidden.yml'
     '404':
       $ref: '../responses/not-found.yml'
   tags:
