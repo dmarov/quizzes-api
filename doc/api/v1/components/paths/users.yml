@@ -1,5 +1,17 @@
 get:
   summary: get list of users
+  parameters:
+    - name: offset
+      in: query
+      schema:
+        type: integer
+      description: first quiz number
+    - name: limit
+      in: query
+      schema:
+        type: integer
+      description: limit quizzes number
+    - $ref: '../params/query.yml#/Tag'
   responses:
     '200':
       description: list of users

@@ -9,6 +9,9 @@ get:
         application/json:
           schema:
             $ref: '../schemas/user.yml#/User'
+    '404':
+      $ref: '../responses/not-found.yml'
+
   tags:
     - user
 
@@ -27,6 +30,8 @@ patch:
       description: user updated
     '401':
       $ref: '../responses/not-authorized.yml'
+    '404':
+      $ref: '../responses/not-found.yml'
     '409':
       description: username exists
     '422':
@@ -43,5 +48,7 @@ delete:
       description: user deleted
     '401':
       $ref: '../responses/not-authorized.yml'
+    '404':
+      $ref: '../responses/not-found.yml'
   tags:
     - user

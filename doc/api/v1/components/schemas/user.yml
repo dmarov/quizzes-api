@@ -6,21 +6,20 @@ UserName:
       type: string
       minLength: 1
       maxLength: 100
+      description: user name
   example:
     name: test
 
 User:
   type: object
+  allOf:
+    - $ref: '#/UserName'
   description: user summary info
   properties:
     id:
       type: string
-      description: quiz identifier
+      description: user identifier
       example: 1
-    name:
-      type: string
-      description: quiz title
-      example: Bob
     _links:
       $ref: '_links/user.yml'
     _embedded:

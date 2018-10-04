@@ -25,11 +25,13 @@ routes.get(path, user(),
             .offset(offset)
             .limit(limit);
 
-        let tags = ctx.query.tags;
-        if (!Array.isArray(tags)) tags = [ tags ];
+        let tag = ctx.query.tag;
 
-        if (tags)
+        if (tag) {
+            let tags = tag;
+            if (!Array.isArray(tags)) tags = [ tag ];
             qb = qb.where(knex.raw('tags @> :tags::jsonb', { tags: JSON.stringify(tags) }))
+        }
 
         qb = qb.toSQL()
             .toNative();

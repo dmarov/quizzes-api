@@ -1,0 +1,9 @@
+Tag:
+  name: tag
+  in: query
+  schema:
+    anyOf:
+      - type: string
+      - type: array
+        items:
+          type: string

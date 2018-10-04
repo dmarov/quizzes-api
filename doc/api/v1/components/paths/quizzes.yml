@@ -1,6 +1,4 @@
 get:
-  security:
-    - jwtAuth: []
   summary: get list of quizzes
   parameters:
     - $ref: '../params/path.yml#/User'
@@ -14,45 +12,42 @@ get:
       schema:
         type: integer
       description: limit quizzes number
+    - $ref: '../params/query.yml#/Tag'
   responses:
     '200':
       description: list of quizzes
       content:
         application/json:
           schema:
-            $ref: '../schemas/quiz.yml#/PaginatedQuizzes'
-    '401':
-      $ref: '../responses/not-authorized.yml'
-    '403':
-      $ref: '../responses/forbidden.yml'
+            $ref: '../schemas/quiz.yml#/Quizzes'
   tags:
-    - quizzes
+    - quiz
 
-post:
-  security:
-    - jwtAuth: []
-  summary: create quiz
-  requestBody:
-    description: provides quiz title using json format
-    content:
-      application/json:
-        schema:
-          properties:
-            title:
-              type: string
-        example:
-          title: New Exiting Quiz
-    required: true
-  responses:
-    '201':
-      description: quiz created
-      content:
-        application/json:
-          schema:
-            $ref: '../schemas/quiz.yml#/Quiz'
-    '401':
-      $ref: '../responses/not-authorized.yml'
-    '403':
-      $ref: '../responses/forbidden.yml'
-  tags:
-    - quizzes
+# post:
+#   security:
+#     - jwtAuth: []
+#   summary: create quiz
+#   requestBody:
+#     description: provides quiz title using json format
+#     content:
+#       application/json:
+#         schema:
+#           properties:
+#             title:
+#               type: string
+#         example:
+#           title: New Exiting Quiz
+#     required: true
+#   responses:
+#     '201':
+#       description: quiz created
+#       content:
+#         application/json:
+#           schema:
+#             $ref: '../schemas/quiz.yml#/Quiz'
+#     '401':
+#       $ref: '../responses/not-authorized.yml'
+#     '403':
+#       $ref: '../responses/forbidden.yml'
+#   tags:
+#     - quizzes
