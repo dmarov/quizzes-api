@@ -6,7 +6,7 @@ get:
     '200':
       description: 
       content:
-        application/json:
+        application/hal+json:
           schema:
             $ref: '../schemas/user.yml#/User'
     '404':

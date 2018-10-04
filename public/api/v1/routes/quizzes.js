@@ -75,8 +75,15 @@ routes.post(path, checkRole('admin'), checkUser(), user(),
         fields.sort = sort;
         delete fields.tags;
 
-        let quiz = await ctx.db.quiz.insert(fields)
-            .then(res => camelCaseKeys(res));
+        let quiz;
+        try {
+            quiz = await ctx.db.quiz.insert(fields)
+                .then(res => camelCaseKeys(res));
+        } catch(e) {
+            ctx.status = 422;
+            ctx.body = e.message;
+            return;
+        }
 
         let origin = ctx.origin;
         let userName = ctx.params.user;

@@ -1,3 +1,10 @@
+QuizTitle:
+  properties:
+    title:
+      type: string
+  example:
+    title: new exiting quiz
+
 Quiz:
   type: object
   description: quiz summary info
@@ -5,19 +12,22 @@ Quiz:
     id:
       type: string
       description: quiz identifier
+      example: 1
     userId:
       type: string
       description: user identifier
+      example: 1
     title:
       type: string
       description: quiz title
+      title: new exiting quiz
     creationDate:
       type: string
-  example:
-    id: 1
-    userId: 1
-    title: New Exiting quiz
-    creationDate: "2018-09-27 12:00:00"
+      example: 2018-09-27 12:00:00
+    _links:
+      $ref: '_links/quiz.yml'
+    _embedded:
+      $ref: '_embedded/quiz.yml'
 
 Quizzes:
   type: object
