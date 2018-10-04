@@ -33,7 +33,7 @@ routes.get(path, checkRole('admin'), checkUser(), user(), quiz(),
 routes.post(path, checkRole('admin'), checkUser(), user(), quiz(),
     async (ctx, next) => {
 
-        let newTag = ctx.request.body;
+        let newTag = ctx.request.body.tag;
         let quiz = ctx.state.quiz;
         let tags = quiz.tags;
         tags.push(newTag);

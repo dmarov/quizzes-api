@@ -17,7 +17,7 @@ get:
     '200':
       description: list of quizzes
       content:
-        application/json:
+        application/hal+json:
           schema:
             $ref: '../schemas/quiz.yml#/Quizzes'
   tags:
@@ -38,7 +38,7 @@ post:
     '201':
       description: quiz created
       content:
-        application/json:
+        application/hal+json:
           schema:
             $ref: '../schemas/quiz.yml#/Quiz'
     '401':
@@ -74,11 +74,7 @@ patch:
     required: true
   responses:
     '204':
-      description: quizzes updated
-      content:
-        application/json:
-          schema:
-            $ref: '../schemas/quiz.yml#/Quiz'
+      description: quizzes collection updated
     '401':
       $ref: '../responses/not-authorized.yml'
     '404':

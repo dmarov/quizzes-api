@@ -6,6 +6,3 @@ Tags:
   type: array
   items:
     $ref: '#/Tag'
-  example:
-    - part A
-    - easy

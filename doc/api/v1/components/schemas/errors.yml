@@ -9,3 +9,6 @@ NotAuthorized:
 
 UnprocessableEntity:
   type: string
+
+Conflict:
+  type: string

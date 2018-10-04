@@ -8,7 +8,7 @@ get:
     '200':
       description: quiz
       content:
-        application/json:
+        application/hal+json:
           schema:
             $ref: '../schemas/quiz.yml#/Quiz'
     '401':

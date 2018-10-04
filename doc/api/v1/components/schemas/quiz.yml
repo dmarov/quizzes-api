@@ -48,3 +48,13 @@ Quizzes:
       $ref: '_links/quizzes.yml'
     _embedded:
       $ref: '_embedded/quizzes.yml'
+
+Tags:
+  type: array
+  items:
+    type: object
+    properties:
+      tag:
+        $ref: 'tag.yml#/Tag'
+      _links:
+        $ref: '_links/quiz-tag.yml'
