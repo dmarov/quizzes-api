@@ -7,7 +7,7 @@ UserName:
       minLength: 1
       maxLength: 100
   example:
-    name: Bob
+    name: test
 
 User:
   type: object
@@ -26,7 +26,7 @@ User:
     _embedded:
       $ref: '_embedded/user.yml'
 
-UsersHal:
+Users:
   type: object
   description: list of users
   properties:

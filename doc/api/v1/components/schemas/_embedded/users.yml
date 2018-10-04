@@ -1,0 +1,6 @@
+type: object
+propreties:
+  items:
+    type: array
+    items:
+      $ref: '../user.yml#/User'

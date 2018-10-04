@@ -1,7 +1,6 @@
 openapi.html generated with redoc-cli
 `redoc-cli bundle -o openapi.html openapi.yml` 
 
-
 question content types:
 text:
 {

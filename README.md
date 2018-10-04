@@ -8,13 +8,16 @@ yarn
 *running*
 ```
 export PG_HOST=127.0.0.1
-export PG_USER=quizzes_api
-export PG_PASSWORD=secretpasswordforquizzes_api
+export PG_PORT=5432
+export PG_PASSWORD=secret_password_for_quizzes_api
 ```
 
 create user quizzes_api
+
 create database quizzes_api_v1 imported from sql/quizzes_api_v1.sql
+
 set owner to `quizzes_api` for `quizzes_api_v1`
+
 run server
 ```
 cd public
@@ -23,4 +26,7 @@ cd public
 ```
 
 refer to ./tests/ directory for examples
-refer to http://localhost:port for documentation
+
+refer to ./doc/README.txt for documentation clarifications
+
+refer to http://localhost:port for incomplete documentation

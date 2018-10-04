@@ -6,3 +6,6 @@ NotFound:
 
 NotAuthorized:
   type: string
+
+UnprocessableEntity:
+  type: string

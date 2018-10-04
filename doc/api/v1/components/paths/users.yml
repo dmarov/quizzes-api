@@ -1,36 +1,36 @@
 get:
-  security:
-    - jwtAuth: []
   summary: get list of users
   responses:
     '200':
       description: list of users
       content:
-        application/json:
+        application/hal+json:
           schema:
-            $ref: '../schemas/user.yml#/UsersHal'
+            $ref: '../schemas/user.yml#/Users'
   tags:
     - user
 
 post:
   security:
-    - jwtAuth: []
+    - jwtApiAdmin: []
   summary: create user
   requestBody:
     description: username provider
     content:
       application/json:
         schema:
-            $ref: '../schemas/user.yml#/UserName'
+          $ref: '../schemas/user.yml#/UserName'
     required: true
   responses:
     '201':
       description: user created
       content:
-        application/json:
+        application/hal+json:
           schema:
             $ref: '../schemas/user.yml#/User'
     '401':
       $ref: '../responses/not-authorized.yml'
+    '422':
+      $ref: '../responses/unprocessable-entity.yml'
   tags:
-    - quizzes
+    - user
