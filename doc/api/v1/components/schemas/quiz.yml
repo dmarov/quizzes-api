@@ -24,6 +24,8 @@ Quiz:
     creationDate:
       type: string
       example: 2018-09-27 12:00:00
+    tags:
+      $ref: 'tag.yml#/Tags'
     _links:
       $ref: '_links/quiz.yml'
     _embedded:

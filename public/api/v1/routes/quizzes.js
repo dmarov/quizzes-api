@@ -107,6 +107,12 @@ routes.patch(path, checkRole('admin'), checkUser(), user(),
         let user = ctx.state.user;
         let diff = ctx.request.body;
 
+        if (!Array.isArray(diff)) {
+            ctx.status = 422;
+            ctx.body = e.message;
+            return;
+        }
+
         let quizzes;
         try {
 
