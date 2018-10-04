@@ -1,0 +1,16 @@
+type: object
+properties:
+  self:
+    $ref: 'link.yml'
+  first:
+    $ref: 'link.yml'
+  last:
+    $ref: 'link.yml'
+  prev:
+    $ref: 'link.yml'
+  next:
+    $ref: 'link.yml'
+required:
+  - self
+  - first
+  - last

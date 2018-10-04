@@ -1,0 +1,45 @@
+UserName:
+  type: object
+  description: user name provider
+  properties:
+    name:
+      type: string
+      minLength: 1
+      maxLength: 100
+  example:
+    name: Bob
+
+User:
+  type: object
+  description: user summary info
+  properties:
+    id:
+      type: string
+      description: quiz identifier
+      example: 1
+    name:
+      type: string
+      description: quiz title
+      example: Bob
+    _links:
+      $ref: '_links/user.yml'
+    _embedded:
+      $ref: '_embedded/user.yml'
+
+UsersHal:
+  type: object
+  description: list of users
+  properties:
+    offset:
+      type: number
+      example: 0
+    limit:
+      type: number
+      example: 30
+    size:
+      type: number
+      example: 1
+    _links:
+      $ref: '_links/users.yml'
+    _embedded:
+      $ref: '_embedded/users.yml'

@@ -43,7 +43,7 @@ let sequenceSchema = {
             type: "string",
             pattern: "^sequence$",
         },
-        options: {
+        items: {
             type: "array",
             items: {
                 type: "any"
@@ -51,7 +51,7 @@ let sequenceSchema = {
             uniqueItems: true,
         },
     },
-    required: ["type", "options"],
+    required: ["type", "items"],
 };
 
 module.exports = async response => {

@@ -1,0 +1,10 @@
+type: object
+allOf:
+  - $ref: 'collection.yml'
+example:
+  self:
+    href: 'https://quizzes.websm.io/users'
+  first:
+    href: 'https://quizzes.websm.io/users?offset=0&limit=30'
+  last:
+    href: 'https://quizzes.websm.io/users?offset=0&limit=30'

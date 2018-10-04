@@ -12,20 +12,25 @@ info:
 
 components:
   securitySchemes:
-    jwtAuth:
+    jwtApiAdmin:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: "JSON Web Token payload format: { role: \"api-admin\" }"
+    jwtAdmin:
       type: http
       scheme: bearer
       bearerFormat: JWT
       description: "JSON Web Token payload format: { role: \"admin\", user: \"bright-ege\" }"
 
 servers:
-  - url: https://api.quiz.websm.io/{version}
+  - url: https://quizzes.websm.io/api/{version}
     description: production server
     variables:
       version:
         description: api version
         default: v1
-  - url: https://api.quiz.websm.io/{version}
+  - url: https://quizzes.websm.io/api/{version}
     description: development server
     variables:
       version:
@@ -33,26 +38,28 @@ servers:
         default: v1
 
 paths:
-  /users/{user}/quizzes:
-    $ref: 'components/paths/quizzes.yml'
-  /users/{user}/quizzes/{quizId}:
-    $ref: 'components/paths/quiz.yml'
-  /users/{user}/quizzes/{quizId}/tags:
-    $ref: 'components/paths/quiz-tags.yml'
-  /users/{user}/quizzes/{quizId}/tags/{tag}:
-    $ref: 'components/paths/quiz-tag.yml'
-  /users/{user}/quizzes/{quizId}/questions:
-    $ref: 'components/paths/questions.yml'
-  /users/{user}/quizzes/{quizId}/questions/{questionId}:
-    $ref: 'components/paths/question.yml'
+  /users:
+    $ref: 'components/paths/users.yml'
+  # /users/{user}/quizzes:
+  #   $ref: 'components/paths/quizzes.yml'
+  # /users/{user}/quizzes/{quizId}:
+  #   $ref: 'components/paths/quiz.yml'
+  # /users/{user}/quizzes/{quizId}/tags:
+  #   $ref: 'components/paths/quiz-tags.yml'
+  # /users/{user}/quizzes/{quizId}/tags/{tag}:
+  #   $ref: 'components/paths/quiz-tag.yml'
+  # /users/{user}/quizzes/{quizId}/questions:
+  #   $ref: 'components/paths/questions.yml'
+  # /users/{user}/quizzes/{quizId}/questions/{questionId}:
+  #   $ref: 'components/paths/question.yml'
   # full statistics ?
   # /users/{user}/quizzes/{quizId}/statistics:
-  /users/{user}/quizzes/{quizId}/questions/{questionId}/statistics:
-    $ref: 'components/paths/question-statistics.yml'
-  /users/{user}/quizzes/{quizId}/questions/{questionId}/tags:
-    $ref: 'components/paths/question-tags.yml'
-  /users/{user}/quizzes/{quizId}/questions/{questionId}/tags/{tag}:
-    $ref: 'components/paths/question-tag.yml'
+  # /users/{user}/quizzes/{quizId}/questions/{questionId}/statistics:
+  #   $ref: 'components/paths/question-statistics.yml'
+  # /users/{user}/quizzes/{quizId}/questions/{questionId}/tags:
+  #   $ref: 'components/paths/question-tags.yml'
+  # /users/{user}/quizzes/{quizId}/questions/{questionId}/tags/{tag}:
+  #   $ref: 'components/paths/question-tag.yml'
   # /users/{user}/quizzes/{quizId}/responses:
   #   $ref: 'components/paths/responses.yml'
   # /users/{user}/quizzes/{quizId}/responses/{responseId}:

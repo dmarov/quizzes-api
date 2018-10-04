@@ -30,6 +30,7 @@ routes.get(path, user(), quiz(),
             .limit(limit);
 
         let tags = ctx.query.tags;
+        if (!Array.isArray(tags)) tags = [ tags ];
 
         if (tags)
             qb = qb.where(knex.raw('tags @> :tags::jsonb', { tags: JSON.stringify(tags) }))
