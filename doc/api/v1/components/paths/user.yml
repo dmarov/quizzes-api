@@ -1,0 +1,47 @@
+parameters:
+  - $ref: '../params/path.yml#/User'
+get:
+  summary: get user by name
+  responses:
+    '200':
+      description: 
+      content:
+        application/json:
+          schema:
+            $ref: '../schemas/user.yml#/User'
+  tags:
+    - user
+
+patch:
+  security:
+    - jwtApiAdmin: []
+  summary: update user
+  requestBody:
+    description: username provider
+    content:
+      application/json:
+        schema:
+          $ref: '../schemas/user.yml#/UserName'
+  responses:
+    '204':
+      description: user updated
+    '401':
+      $ref: '../responses/not-authorized.yml'
+    '409':
+      description: username exists
+    '422':
+      description: invalid user name
+  tags:
+    - user
+
+delete:
+  security:
+    - jwtApiAdmin: []
+  summary: delete user
+  responses:
+    '204':
+      description: user deleted
+    '401':
+      $ref: '../responses/not-authorized.yml'
+  tags:
+    - user

@@ -31,12 +31,14 @@ routes.patch(path, checkRole('api-admin'), user(),
         fields = snakeCaseKeys(fields);
         delete fields.id;
 
-        try {
-            fields.name = await validateName(fields.name);
-        } catch(e) {
-            ctx.status = 422;
-            ctx.body = e.message;
-            return;
+        if (fields.name) {
+            try {
+                fields.name = await validateName(fields.name);
+            } catch(e) {
+                ctx.status = 422;
+                ctx.body = e.message;
+                return;
+            }
         }
 
         try {

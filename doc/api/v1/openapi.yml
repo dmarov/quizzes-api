@@ -40,6 +40,8 @@ servers:
 paths:
   /users:
     $ref: 'components/paths/users.yml'
+  /users/{user}:
+    $ref: 'components/paths/user.yml'
   # /users/{user}/quizzes:
   #   $ref: 'components/paths/quizzes.yml'
   # /users/{user}/quizzes/{quizId}:
