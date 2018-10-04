@@ -3,7 +3,7 @@ const halQuestion = require('../question');
 module.exports = async ({ origin, userName, quizId, questions }) => {
 
     let promises = questions.map(async question => {
-        return { ...question, _links: halQuestion.links({
+        return { ...question, _links: await halQuestion.links({
             origin,
             userName,
             quizId,

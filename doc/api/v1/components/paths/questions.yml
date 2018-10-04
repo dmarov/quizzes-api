@@ -46,5 +46,39 @@ post:
             $ref: '../schemas/question.yml#/Question'
     '401':
       $ref: '../responses/not-authorized.yml'
+    '422':
+      $ref: '../responses/unprocessable-entity.yml'
+  tags:
+    - question
+
+patch:
+  security:
+    - jwtAdmin: []
+  summary: updates questions collection
+  requestBody:
+    description: question params provider
+    content:
+      application/json:
+        schema:
+          type: array
+          items:
+            type: object
+            additionalProperties: true
+            example:
+              - id: 1
+                sort: 3
+              - id: 3
+                sort: 1
+  responses:
+    '204':
+      description: questions collection updated
+    '401':
+      $ref: '../responses/not-authorized.yml'
+    '403':
+      $ref: '../responses/forbidden.yml'
+    '404':
+      $ref: '../responses/not-found.yml'
+    '422':
+      $ref: '../responses/unprocessable-entity.yml'
   tags:
     - question

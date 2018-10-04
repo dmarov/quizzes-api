@@ -137,11 +137,9 @@ routes.patch(path, checkRole('admin'), checkUser(), user(), quiz(),
 
                     let id = patch.id;
                     delete patch.id;
-                    delete patch.quiz_id;
-                    delete patch.content;
-                    delete patch.response;
-                    delete patch.creation_date;
-                    delete patch.tags;
+
+                    if (patch.quiz_id || patch.content || patch.response || patch.creation_date || patch.tags)
+                        throw {code: 403, message: 'forbidden'};
 
                     let patchedQuestions = await tx.question.update({
                         quiz_id: quiz.id, id,

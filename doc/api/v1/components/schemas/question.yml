@@ -17,6 +17,9 @@ Question:
       $ref: 'question-response.yml#/Response'
     content:
       $ref: 'question-content.yml#/Content'
+    sort:
+      type: number
+      example: 1
     tags:
       $ref: 'tag.yml#/Tags'
     _links:
