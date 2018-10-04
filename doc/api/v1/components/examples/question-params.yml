@@ -1,0 +1,52 @@
+text-single-option:
+  summary: content - text, response - single option
+  description: question with content type = text, response type = single option
+  value:
+    content:
+      type: text
+      text: lalala
+    response:
+      type: single option
+      options:
+        - 1
+        - 2
+        - 3
+text-multiple-options:
+  summary: content - text, response - multiple options
+  description: question with content type = text, response type = multiple options
+  value:
+    content:
+      type: text
+      text: lalala
+    response:
+      type: multiple options
+      options:
+        - 1
+        - 2
+        - 3
+text-sequence:
+  summary: content - text, response - sequence
+  description: question with content type = text, response type = sequence
+  value:
+    content:
+      type: text
+      text: lalala
+    response:
+      type: sequence
+      options:
+        - 1
+        - 2
+        - 3
+image-single-option:
+  summary: content - image, response - single option
+  description: question with content type = image, response type = single option
+  value:
+    content:
+      type: image
+      src: /data/123abc.jpg_500x500
+    response:
+      type: single option
+      options:
+        - 1
+        - 2
+        - 3

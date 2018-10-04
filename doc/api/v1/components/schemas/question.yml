@@ -1,3 +1,11 @@
+QuestionParams:
+  type: object
+  properties:
+    response:
+      $ref: 'question-response.yml#/Response'
+    content:
+      $ref: 'question-content.yml#/Content'
+
 Question:
   title: quiz question
   type: object

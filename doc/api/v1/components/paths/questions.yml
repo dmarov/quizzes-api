@@ -19,37 +19,32 @@ get:
     '200':
       description: list of questions
       content:
-        application/json:
+        application/hal+json:
           schema:
             $ref: '../schemas/question.yml#/Questions'
   tags:
     - question
-# post:
-#   security:
-#     - jwtAuth: []
-#   summary: append question to quiz
-#   requestBody:
-#     description: provide question info using json format
-#     content:
-#       application/json:
-#         schema:
-#           properties:
-#             type:
-#               type: string
-#             # content:
-#             #   $ref: '../schemas/question-content.yml#/Content'
-#             # response:
-#             #   $ref: '../schemas/question-response.yml#/Response'
-#   responses:
-#     '201':
-#       description: question created
-#       content:
-#         application/json:
-#           schema:
-#             $ref: '../schemas/question.yml#/Question'
-#     '401':
-#       $ref: '../responses/not-authorized.yml'
-#     '403':
-#       $ref: '../responses/forbidden.yml'
-#   tags:
-#     - questions
+
+post:
+  security:
+    - jwtAdmin: []
+  summary: append question to quiz
+  requestBody:
+    description: question params provider
+    content:
+      application/json:
+        schema:
+          $ref: '../schemas/question.yml#/QuestionParams'
+        examples:
+          $ref: '../examples/question-params.yml'
+  responses:
+    '201':
+      description: question created
+      content:
+        application/hal+json:
+          schema:
+            $ref: '../schemas/question.yml#/Question'
+    '401':
+      $ref: '../responses/not-authorized.yml'
+  tags:
+    - question
