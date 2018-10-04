@@ -11,13 +11,25 @@ Question:
       $ref: 'question-content.yml#/Content'
     tags:
       $ref: 'tag.yml#/Tags'
+    _links:
+      $ref: '_links/question.yml'
+    _embedded:
+      $ref: '_embedded/question.yml'
 
-PaginatedQuestions:
-  title: paginated list of questions
+Questions:
+  title: list of questions
   type: object
-  allOf:
-    - $ref: 'pagination.yml'
   properties:
-    results:
-      items:
-        $ref: '#/Question'
+    offset:
+      type: number
+      example: 0
+    limit:
+      type: number
+      example: 30
+    size:
+      type: number
+      example: 1
+    _links:
+      $ref: '_links/questions.yml'
+    _embedded:
+      $ref: '_embedded/questions.yml'

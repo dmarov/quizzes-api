@@ -17,7 +17,7 @@ QuestionId:
     type: string
 
 Tag:
-  name: tagName
+  name: tag
   in: path
   schema:
     type: string

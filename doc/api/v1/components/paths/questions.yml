@@ -2,8 +2,6 @@ parameters:
   - $ref: '../params/path.yml#/User'
   - $ref: '../params/path.yml#/QuizId'
 get:
-  security:
-    - jwtAuth: []
   summary: get list of questions
   parameters:
     - name: offset
@@ -16,45 +14,42 @@ get:
       schema:
         type: integer
       description: limit questions number
+    - $ref: '../params/query.yml#/Tag'
   responses:
     '200':
       description: list of questions
       content:
         application/json:
           schema:
-            $ref: '../schemas/question.yml#/PaginatedQuestions'
-    '401':
-      $ref: '../responses/not-authorized.yml'
-    '403':
-      $ref: '../responses/forbidden.yml'
+            $ref: '../schemas/question.yml#/Questions'
   tags:
-    - questions
-post:
-  security:
-    - jwtAuth: []
-  summary: append question to quiz
-  requestBody:
-    description: provide question info using json format
-    content:
-      application/json:
-        schema:
-          properties:
-            type:
-              type: string
-            # content:
-            #   $ref: '../schemas/question-content.yml#/Content'
-            # response:
-            #   $ref: '../schemas/question-response.yml#/Response'
-  responses:
-    '201':
-      description: question created
-      content:
-        application/json:
-          schema:
-            $ref: '../schemas/question.yml#/Question'
-    '401':
-      $ref: '../responses/not-authorized.yml'
-    '403':
-      $ref: '../responses/forbidden.yml'
-  tags:
-    - questions
+    - question
+# post:
+#   security:
+#     - jwtAuth: []
+#   summary: append question to quiz
+#   requestBody:
+#     description: provide question info using json format
+#     content:
+#       application/json:
+#         schema:
+#           properties:
+#             type:
+#               type: string
+#             # content:
+#             #   $ref: '../schemas/question-content.yml#/Content'
+#             # response:
+#             #   $ref: '../schemas/question-response.yml#/Response'
+#   responses:
+#     '201':
+#       description: question created
+#       content:
+#         application/json:
+#           schema:
+#             $ref: '../schemas/question.yml#/Question'
+#     '401':
+#       $ref: '../responses/not-authorized.yml'
+#     '403':
+#       $ref: '../responses/forbidden.yml'
+#   tags:
+#     - questions

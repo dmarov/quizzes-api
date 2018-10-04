@@ -48,10 +48,10 @@ paths:
     $ref: 'components/paths/quiz.yml'
   /users/{user}/quizzes/{quizId}/tags:
     $ref: 'components/paths/quiz-tags.yml'
-  # /users/{user}/quizzes/{quizId}/tags/{tag}:
-  #   $ref: 'components/paths/quiz-tag.yml'
-  # /users/{user}/quizzes/{quizId}/questions:
-  #   $ref: 'components/paths/questions.yml'
+  /users/{user}/quizzes/{quizId}/tags/{tag}:
+    $ref: 'components/paths/quiz-tag.yml'
+  /users/{user}/quizzes/{quizId}/questions:
+    $ref: 'components/paths/questions.yml'
   # /users/{user}/quizzes/{quizId}/questions/{questionId}:
   #   $ref: 'components/paths/question.yml'
   # full statistics ?
