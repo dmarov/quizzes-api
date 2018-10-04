@@ -52,8 +52,8 @@ paths:
     $ref: 'components/paths/quiz-tag.yml'
   /users/{user}/quizzes/{quizId}/questions:
     $ref: 'components/paths/questions.yml'
-  # /users/{user}/quizzes/{quizId}/questions/{questionId}:
-  #   $ref: 'components/paths/question.yml'
+  /users/{user}/quizzes/{quizId}/questions/{questionId}:
+    $ref: 'components/paths/question.yml'
   # full statistics ?
   # /users/{user}/quizzes/{quizId}/statistics:
   # /users/{user}/quizzes/{quizId}/questions/{questionId}/statistics:

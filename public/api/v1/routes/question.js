@@ -37,42 +37,21 @@ routes.patch(path, user(), quiz(), question(),
         let question = ctx.state.question;
 
         let fields = camelCaseKeys(ctx.request.body);
-        delete fields.id;
-        delete fields.quiz_id;
-        delete fields.sort;
-        delete fields.creation_date;
-        delete fields.tags;
+        if (fields.id || fields.quiz_id || fields.creation_date) {
+            ctx.status = 403;
+            ctx.body = 'forbidden';
+            return;
+        }
 
         try {
             fields.content = await validateContent(fields.content);
             fields.response = await validateResponse(fields.response);
+            fields.tags = await validateTags(fields.tags);
+            fields.tags = JSON.stringify(fields.tags);
         } catch(e) {
             ctx.status = 422;
             ctx.body = e.message;
         }
-
-        // let tags = fields.tags;
-
-        // try {
-        //     tags = await validateTags(tags);
-        // } catch(e) {
-
-        //     switch(e.name) {
-        //         case 'unique error':
-        //             ctx.status = 409;
-        //             ctx.body = 'tag exists';
-        //             return;
-        //         case 'type error':
-        //             ctx.status = 422;
-        //             ctx.body = 'invalid tag';
-        //             return;
-        //         default:
-        //             throw e;
-        //     }
-
-        // }
-
-        // fields.tags = JSON.stringify(tags);
 
         question = await ctx.db.question.update({ id: question.id }, fields);
 

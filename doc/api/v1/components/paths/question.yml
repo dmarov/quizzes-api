@@ -3,8 +3,6 @@ parameters:
   - $ref: '../params/path.yml#/QuizId'
   - $ref: '../params/path.yml#/QuestionId'
 get:
-  security:
-    - jwtAuth: []
   summary: get question by id
   responses:
     '200':
@@ -12,10 +10,6 @@ get:
         application/json:
           schema:
             $ref: '../schemas/question.yml#/Question'
-    '401':
-      $ref: '../responses/not-authorized.yml'
-    '403':
-      $ref: '../responses/forbidden.yml'
     '404':
       $ref: '../responses/not-found.yml'
   tags:
@@ -23,19 +17,14 @@ get:
 
 patch:
   security:
-    - jwtAuth: []
-  summary: update question info
+    - jwtAdmin: []
+  summary: update question
   responses:
     '200':
       content:
         application/json:
           schema:
-            type: object
-            properties:
-              response:
-                $ref: '../schemas/question-response.yml#/Response'
-              content:
-                $ref: '../schemas/question-content.yml#/Content'
+            $ref: '../schemas/question.yml#/QuestionParams'
     '401':
       $ref: '../responses/not-authorized.yml'
     '403':
@@ -47,15 +36,13 @@ patch:
 
 delete:
   security:
-    - jwtAuth: []
+    - jwtAdmin: []
   summary: delete question by id
   responses:
     '204':
       description: question deleted
     '401':
       $ref: '../responses/not-authorized.yml'
-    '403':
-      $ref: '../responses/forbidden.yml'
     '404':
       $ref: '../responses/not-found.yml'
   tags:
