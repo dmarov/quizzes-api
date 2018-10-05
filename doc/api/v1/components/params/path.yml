@@ -16,6 +16,12 @@ QuestionId:
   schema:
     type: string
 
+ResponseId:
+  name: responseId
+  in: path
+  schema:
+    type: string
+
 Tag:
   name: tag
   in: path

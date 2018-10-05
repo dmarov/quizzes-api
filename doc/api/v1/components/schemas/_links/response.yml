@@ -1,0 +1,9 @@
+type: object
+properties:
+  self:
+    $ref: 'link.yml'
+  quizzes:
+    $ref: 'link.yml'
+example:
+  self:
+    href: 'https://quizzes.websm.io/users/test/quizzes/1/responses/1'

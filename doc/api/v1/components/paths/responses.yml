@@ -1,0 +1,24 @@
+parameters:
+  - $ref: '../params/path.yml#/User'
+  - $ref: '../params/path.yml#/QuizId'
+post:
+  security:
+    - jwtAdmin: []
+  summary: append response to quiz
+  requestBody:
+    description: response params provider
+    content:
+      application/json:
+        schema:
+          $ref: '../schemas/response.yml#/ResponseParams'
+  responses:
+    '201':
+      description: response created
+      content:
+        application/hal+json:
+          schema:
+            $ref: '../schemas/response.yml#/Response'
+    '422':
+      $ref: '../responses/unprocessable-entity.yml'
+  tags:
+    - response

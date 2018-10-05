@@ -1,0 +1,17 @@
+parameters:
+  - $ref: '../params/path.yml#/User'
+  - $ref: '../params/path.yml#/QuizId'
+
+get:
+  summary: get statistics by question id
+  responses:
+    '200':
+      description: quiz
+      content:
+        application/hal+json:
+          schema:
+            $ref: '../schemas/stat.yml#/Stat'
+    '404':
+      $ref: '../responses/not-found.yml'
+  tags:
+    - stat

@@ -1,0 +1,16 @@
+parameters:
+  - $ref: '../params/path.yml#/User'
+  - $ref: '../params/path.yml#/QuizId'
+  - $ref: '../params/path.yml#/ResponseId'
+get:
+  summary: get question by id
+  responses:
+    '200':
+      content:
+        application/json:
+          schema:
+            $ref: '../schemas/response.yml#/Response'
+    '404':
+      $ref: '../responses/not-found.yml'
+  tags:
+    - response

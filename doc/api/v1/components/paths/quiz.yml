@@ -11,8 +11,6 @@ get:
         application/hal+json:
           schema:
             $ref: '../schemas/quiz.yml#/Quiz'
-    '401':
-      $ref: '../responses/not-authorized.yml'
     '404':
       $ref: '../responses/not-found.yml'
   tags:
