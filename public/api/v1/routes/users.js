@@ -21,7 +21,15 @@ routes.get(path,
         if (!limit) limit = 30;
 
         let qb = knex('user')
-            .offset(offset)
+        let qbCnt = qb.clone()
+            .count()
+            .toSQL()
+            .toNative();
+
+        let total = await ctx.db.query(qbCnt.sql, qbCnt.bindings)
+            .then(res => res[0].count);
+
+        qb = qb.offset(offset)
             .limit(limit)
             .toSQL()
             .toNative();
@@ -36,7 +44,7 @@ routes.get(path,
         let _embedded = await hal.users.embedded({ origin, users });
 
         ctx.set('Content-Type', 'application/hal+json');
-        ctx.body = { _embedded, _links, offset, limit, size };
+        ctx.body = { _embedded, _links, offset, limit, total, size };
     }
 );
 

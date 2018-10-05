@@ -20,6 +20,8 @@ get:
         application/hal+json:
           schema:
             $ref: '../schemas/quiz.yml#/Quizzes'
+    '404':
+      $ref: '../responses/not-found.yml'
   tags:
     - quiz
 

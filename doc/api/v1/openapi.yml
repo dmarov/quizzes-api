@@ -54,24 +54,15 @@ paths:
     $ref: 'components/paths/questions.yml'
   /users/{user}/quizzes/{quizId}/questions/{questionId}:
     $ref: 'components/paths/question.yml'
-  # full statistics ?
-  # /users/{user}/quizzes/{quizId}/statistics:
-  # /users/{user}/quizzes/{quizId}/questions/{questionId}/statistics:
-  #   $ref: 'components/paths/question-statistics.yml'
   # /users/{user}/quizzes/{quizId}/questions/{questionId}/tags:
   #   $ref: 'components/paths/question-tags.yml'
   # /users/{user}/quizzes/{quizId}/questions/{questionId}/tags/{tag}:
   #   $ref: 'components/paths/question-tag.yml'
+  /users/{user}/quizzes/{quizId}/stats:
+    $ref: 'components/paths/stats.yml'
+  # /users/{user}/quizzes/{quizId}/stats/{questionId}:
+  #   $ref: 'components/paths/stat.yml'
   # /users/{user}/quizzes/{quizId}/responses:
   #   $ref: 'components/paths/responses.yml'
   # /users/{user}/quizzes/{quizId}/responses/{responseId}:
   #   $ref: 'components/paths/response.yml'
-  # /users/{user}/quizzes/{quizId}/instances:
-  #   $ref: 'components/paths/quiz-instances.yml'
-  # /users/{user}/quizzes/{quizId}/instances/{instanceId}:
-  #   $ref: 'components/paths/quiz-instance.yml'
-  # for stateless service
-  # /users/{user}/quizzes/{quizId}/instances/{instanceId}/questions:
-  #   $ref: 'components/paths/quiz-instance-questions.yml'
-  # /users/{user}/quizzes/{quizId}/instances/{instanceId}/responses:
-  #   $ref: 'components/paths/quiz-instance-responses.yml'

@@ -1,0 +1,38 @@
+parameters:
+  - $ref: '../params/path.yml#/User'
+  - $ref: '../params/path.yml#/QuizId'
+get:
+  summary: get list of questions
+  parameters:
+    - name: offset
+      in: query
+      schema:
+        type: integer
+      description: first question number
+    - name: limit
+      in: query
+      schema:
+        type: integer
+      description: limit questions number
+    - name: dateFrom
+      in: query
+      schema:
+        type: string
+      description: count responses starting from dateFrom date
+    - name: dateTo
+      in: query
+      schema:
+        type: string
+      description: count responses starting from dateTo date
+    - $ref: '../params/query.yml#/Tag'
+  responses:
+    '200':
+      description: list of questions
+      content:
+        application/hal+json:
+          schema:
+            $ref: '../schemas/question.yml#/Questions'
+    '404':
+      $ref: '../responses/not-found.yml'
+  tags:
+    - stat
