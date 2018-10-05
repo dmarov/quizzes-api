@@ -35,7 +35,7 @@ CREATE TABLE "public"."quiz" (
 
 DROP TABLE IF EXISTS "response";
 DROP SEQUENCE IF EXISTS responses_id_seq;
-CREATE SEQUENCE responses_id_seq INCREMENT 1 MINVALUE 1 MAXVALUE 2147483647 START 32 CACHE 1;
+CREATE SEQUENCE responses_id_seq INCREMENT 1 MINVALUE 1 MAXVALUE 2147483647 START 37 CACHE 1;
 
 CREATE TABLE "public"."response" (
     "id" integer DEFAULT nextval('responses_id_seq') NOT NULL,
@@ -49,7 +49,7 @@ CREATE TABLE "public"."response" (
 
 DROP TABLE IF EXISTS "user";
 DROP SEQUENCE IF EXISTS user_id_seq;
-CREATE SEQUENCE user_id_seq INCREMENT 1 MINVALUE 1 MAXVALUE 2147483647 START 11 CACHE 1;
+CREATE SEQUENCE user_id_seq INCREMENT 1 MINVALUE 1 MAXVALUE 2147483647 START 13 CACHE 1;
 
 CREATE TABLE "public"."user" (
     "id" integer DEFAULT nextval('user_id_seq') NOT NULL,
@@ -59,4 +59,4 @@ CREATE TABLE "public"."user" (
 ) WITH (oids = false);
 
 
--- 2018-10-03 11:16:27.612075+03
+-- 2018-10-05 15:01:15.334229+03

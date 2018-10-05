@@ -3,8 +3,6 @@ parameters:
   - $ref: '../params/path.yml#/QuizId'
   - $ref: '../params/path.yml#/QuestionId'
 get:
-  security:
-    - jwtAuth: []
   summary: get list of question tags
   responses:
     '200':
@@ -18,11 +16,11 @@ get:
       $ref: '../responses/forbidden.yml'
   tags:
     - question
-    - tags
+    - tag
 
 post:
   security:
-    - jwtAuth: []
+    - jwtAdmin: []
   summary: append question tag
   requestBody:
     description: provides tag name
@@ -43,4 +41,4 @@ post:
       $ref: '../responses/forbidden.yml'
   tags:
     - question
-    - tags
+    - tag

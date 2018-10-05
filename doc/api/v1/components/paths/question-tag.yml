@@ -5,17 +5,15 @@ parameters:
   - $ref: '../params/path.yml#/Tag'
 delete:
   security:
-    - jwtAuth: []
+    - jwtAdmin: []
   summary: delete question tag
   responses:
     '204':
       description: tag deleted
     '401':
       $ref: '../responses/not-authorized.yml'
-    '403':
-      $ref: '../responses/forbidden.yml'
     '404':
       $ref: '../responses/not-found.yml'
   tags:
     - question
-    - tags
+    - tag

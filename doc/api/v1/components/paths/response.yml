@@ -3,7 +3,7 @@ parameters:
   - $ref: '../params/path.yml#/QuizId'
   - $ref: '../params/path.yml#/ResponseId'
 get:
-  summary: get question by id
+  summary: get response by id
   responses:
     '200':
       content:
