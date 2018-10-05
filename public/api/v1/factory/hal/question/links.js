@@ -6,6 +6,9 @@ module.exports = async ({ origin, userName, quizId, questionId }) => {
         self: {
             href: url,
         },
+        tags: {
+            href: `${origin}/users/${userName}/quizzes/${quizId}/questions/${questionId}/tags`,
+        },
     };
 
     return _links;

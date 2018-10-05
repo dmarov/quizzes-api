@@ -11,6 +11,8 @@ const routes = Router().loadMethods();
 routes.get(path, user(), quiz(), question(),
     async (ctx, next) => {
 
+        let quiz = ctx.state.quiz;
+
         let dateFrom = new Date(0).toISOString();
         let dateTo = new Date().toISOString();
 
@@ -35,9 +37,10 @@ routes.get(path, user(), quiz(), question(),
         let origin = ctx.origin;
         let userName = ctx.params.user;
         let quizId = ctx.params.quizId;
+        let questionId = ctx.params.questionId;
 
-        let _links = await hal.stats.links({ origin, userName, quizId });
-        let _embedded = await hal.stats.embedded({ origin, userName, quizId });
+        let _links = await hal.stat.links({ origin, userName, quizId, questionId });
+        let _embedded = await hal.stat.embedded({ origin, userName, quizId, questionId });
 
         ctx.set('Content-Type', 'application/hal+json');
         ctx.body = { question, stats, _embedded, _links };

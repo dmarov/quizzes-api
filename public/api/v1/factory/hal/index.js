@@ -8,6 +8,7 @@ const question = require('./question');
 const questionTags = require('./question-tags');
 const response = require('./response');
 const stats = require('./stats');
+const stat = require('./stat');
 
 module.exports = {
     users,
@@ -19,5 +20,6 @@ module.exports = {
     question,
     questionTags,
     response,
-    stats
+    stats,
+    stat
 };
