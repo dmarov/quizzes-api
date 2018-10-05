@@ -10,7 +10,7 @@ module.exports = _ => {
         let responseId = ctx.params.responseId;
 
         let response = await ctx.db.response
-            .findOne({ id: responseId });
+            .findOne({ id: responseId, quiz_id: quizId });
 
         if (response === null) {
             ctx.status = 404;
