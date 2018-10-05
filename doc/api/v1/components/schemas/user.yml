@@ -38,6 +38,9 @@ Users:
     size:
       type: number
       example: 1
+    total:
+      type: number
+      example: 1
     _links:
       $ref: '_links/users.yml'
     _embedded:

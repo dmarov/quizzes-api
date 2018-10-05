@@ -2,7 +2,7 @@ parameters:
   - $ref: '../params/path.yml#/User'
   - $ref: '../params/path.yml#/QuizId'
 get:
-  summary: get list of questions
+  summary: get list of quiz statistics
   parameters:
     - name: offset
       in: query
@@ -31,7 +31,7 @@ get:
       content:
         application/hal+json:
           schema:
-            $ref: '../schemas/question.yml#/Questions'
+            $ref: '../schemas/stat.yml#/Stats'
     '404':
       $ref: '../responses/not-found.yml'
   tags:

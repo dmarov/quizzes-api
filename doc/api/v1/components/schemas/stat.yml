@@ -1,0 +1,45 @@
+Stat:
+  title: question statistics
+  properties:
+    question:
+      $ref: 'question.yml#/Question'
+    stats:
+      $ref: '#/Answers'
+    _links:
+      $ref: '_links/stat.yml'
+    # _embedded:
+    #   $ref: '_embedded/stat.yml'
+
+Answers:
+  type: array
+  items:
+    $ref: '#/Answer'
+
+Answer:
+  properties:
+    answer:
+      type: any
+      example: "123"
+    count:
+      type: number
+      example: 11
+
+Stats:
+  title: list of statistics
+  properties:
+    offset:
+      type: number
+      example: 0
+    limit:
+      type: number
+      example: 30
+    size:
+      type: number
+      example: 1
+    total:
+      type: number
+      example: 1
+    _links:
+      $ref: '_links/stats.yml'
+    _embedded:
+      $ref: '_embedded/stats.yml'

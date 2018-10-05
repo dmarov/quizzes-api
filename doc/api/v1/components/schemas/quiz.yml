@@ -44,6 +44,9 @@ Quizzes:
     size:
       type: number
       example: 1
+    total:
+      type: number
+      example: 1
     _links:
       $ref: '_links/quizzes.yml'
     _embedded:
