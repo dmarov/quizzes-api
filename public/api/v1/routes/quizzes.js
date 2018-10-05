@@ -20,10 +20,7 @@ routes.get(path, user(),
         let user = ctx.state.user;
 
         let qb = knex('quiz')
-            .where({ user_id: user.id })
-            .orderBy('sort')
-            .offset(offset)
-            .limit(limit);
+            .where({ user_id: user.id });
 
         let tag = ctx.query.tag;
 
@@ -33,7 +30,18 @@ routes.get(path, user(),
             qb = qb.where(knex.raw('tags @> :tags::jsonb', { tags: JSON.stringify(tags) }))
         }
 
-        qb = qb.toSQL()
+        let qbCnt = qb.clone()
+            .count()
+            .toSQL()
+            .toNative();
+
+        let total = await ctx.db.query(qbCnt.sql, qbCnt.bindings)
+            .then(res => res[0].count);
+
+        qb = qb.orderBy('sort')
+            .offset(offset)
+            .limit(limit)
+            .toSQL()
             .toNative();
 
         let quizzes = await ctx.db.query(qb.sql, qb.bindings)
@@ -43,11 +51,11 @@ routes.get(path, user(),
         let userName = ctx.params.user;
         let size = quizzes.length;
 
-        let _links = await hal.quizzes.links({ origin, userName, offset, limit, size });
+        let _links = await hal.quizzes.links({ origin, userName, offset, limit, total });
         let _embedded = await hal.quizzes.embedded({ origin, userName, quizzes });
 
         ctx.set('Content-Type', 'application/hal+json');
-        ctx.body = { _embedded, _links, offset, limit, size };
+        ctx.body = { _embedded, _links, offset, limit, size, total };
     }
 );
 

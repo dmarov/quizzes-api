@@ -1,4 +1,4 @@
-module.exports = async ({ origin, userName, quizId, offset, limit, size }) => {
+module.exports = async ({ origin, userName, quizId, offset, limit, total }) => {
 
     let url = `${origin}/users/${userName}/quizzes/${quizId}/questions`;
 
@@ -8,7 +8,7 @@ module.exports = async ({ origin, userName, quizId, offset, limit, size }) => {
     urlObj.searchParams.set('limit', limit);
     let urlFirst = urlObj.toString();
 
-    urlObj.searchParams.set('offset', parseInt(size / Math.max(limit, 1)) * limit);
+    urlObj.searchParams.set('offset', parseInt(total / Math.max(limit, 1)) * limit);
     urlObj.searchParams.set('limit', limit);
     let urlLast = urlObj.toString();
 
@@ -40,7 +40,7 @@ module.exports = async ({ origin, userName, quizId, offset, limit, size }) => {
         };
     }
 
-    if (offset + limit < size) {
+    if (offset + limit < total) {
 
         urlObj.searchParams.set('offset', offset + limit);
         urlObj.searchParams.set('limit', limit);

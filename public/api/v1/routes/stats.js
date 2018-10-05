@@ -40,6 +40,14 @@ routes.get(path, user(), quiz(),
             qb = qb.where(knex.raw('tags @> :tags::jsonb', { tags: JSON.stringify(tags) }))
         }
 
+        let qbCnt = qb.clone()
+            .count()
+            .toSQL()
+            .toNative();
+
+        let total = await ctx.db.query(qbCnt.sql, qbCnt.bindings)
+            .then(res => res[0].count);
+
         qb = qb.toSQL()
             .toNative();
 
@@ -70,7 +78,7 @@ routes.get(path, user(), quiz(),
         dateFrom = ctx.query.dateFrom;
         dateTo = ctx.query.dateTo;
         let _links = await hal.stats.links({ origin, userName, quizId,
-            offset, limit, size, tag, dateFrom, dateTo });
+            offset, limit, total, tag, dateFrom, dateTo });
 
         let _embedded = await hal.stats.embedded({ origin, userName, quizId, items });
 
